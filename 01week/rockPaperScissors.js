@@ -60,7 +60,7 @@ function rockPaperScissors(hand1, hand2) {
     return 'Rock wins!';
   } else if (hand1 == 'scissors' && hand2 == 'paper') {
     return 'Scissors win!';
-  } 
+  }
   console.log(hand1, hand2);
 
 }
@@ -75,6 +75,7 @@ function getPrompt() {
 }
 
 // Tests
+// dlsfldks
 
 if (typeof describe === 'function') {
 
