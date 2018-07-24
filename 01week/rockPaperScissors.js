@@ -29,9 +29,6 @@
 
 // 3 if hand1 === scissors && hand2 !== rock, return scissors win
 // else return rock wins
-//
-// resetGame function that resets game by calling a resetVariables function
-// resetVariables function will assign variables back to original values.
 
 'use strict';
 
@@ -42,32 +39,48 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
 function rockPaperScissors(hand1, hand2) {
 
-  // Write code here
-  if (hand1 == hand2) {
-    return 'Tie!';
-  } else if (hand1 == 'rock' && hand2 == 'paper') {
-    return 'Rock wins!';
-  } else if (hand1 == 'rock' && hand2 == 'scissors') {
-    return 'Rock wins!';
-  } else if (hand1 == 'paper' && hand2 == 'rock') {
-    return 'Paper wins!';
-  } else if (hand1 == 'paper' && hand2 == 'scissors') {
-    return 'Scissors win!';
-  } else if (hand1 == 'scissors' && hand2 == 'rock') {
-    return 'Rock wins!';
-  } else if (hand1 == 'scissors' && hand2 == 'paper') {
-    return 'Scissors win!';
+  // write code to remove spaces and case sensitivity
+  hand1 = hand1.toLowerCase().trim();
+  hand2 = hand2.toLowerCase().trim();
+  // check for incorrect spellings of 'scissors' and assign hand variable to 'scissors'
+  if (hand1 === 'scisors' || hand1 === 'sissors' || hand1 === 'sisors' || hand1 === 'scsissors') {
+    hand1 = 'scissors';
+  } if (hand2 === 'scisors' || hand2 === 'sissors' || hand2 === 'sisors' || hand2 === 'scsissors') {
+    hand2 = 'scissors';
+    // check for correct accepted inputs: rock, paper, or scissors
+  } if ((hand1 === 'rock' || hand1 === 'paper' || hand1 === 'scissors') &&
+  (hand2 === 'rock' || hand2 === 'paper' || hand2 === 'scissors')) {
+    // check for tie
+    if (hand1 == hand2) {
+      return 'Tie!';
+      // check other combos and return correct winner
+    } else if (hand1 == 'rock' && hand2 == 'paper') {
+      return 'Paper wins!';
+    } else if (hand1 == 'rock' && hand2 == 'scissors') {
+      return 'Rock wins!';
+    } else if (hand1 == 'paper' && hand2 == 'rock') {
+      return 'Paper wins!';
+    } else if (hand1 == 'paper' && hand2 == 'scissors') {
+      return 'Scissors win!';
+    } else if (hand1 == 'scissors' && hand2 == 'rock') {
+      return 'Rock wins!';
+    } else if (hand1 == 'scissors' && hand2 == 'paper') {
+      return 'Scissors win!';
+    }
+    // return informative error message for unaccepted inputs
+  } else {
+    return 'Did not enter "rock", "paper", or "scissors"!'
   }
-  console.log(hand1, hand2);
 
+  console.log(hand1, hand2);
 }
 
 function getPrompt() {
   rl.question('hand1: ', (answer1) => {
     rl.question('hand2: ', (answer2) => {
+
       console.log( rockPaperScissors(answer1, answer2) );
       getPrompt();
     });
