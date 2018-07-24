@@ -11,24 +11,22 @@
 // If User1 input is 'scissors' and User2 input is 'rock', User2 wins.
 // If User1 input is 'scissors' and User2 input is 'scissors', it's a tie.
 
-// type rock, paper, or scissors into game input
-// assign hand1 and hand2 to rock, paper, or scissors based on what element user clicks on
-//
-// have function that switches player turn
-//
-//
-// have comparison function rockPaperScissors evaluate hand1 and hand2 entries
+// have function rockPaperScissors evaluate hand1 and hand2 entries
+// code to make entries not case sensitive and to correct incorrect spelling, also trim unncessary spaces
+
 // first check if hand1 === hand2, return tie message
 
-// 1 if passes, check below:
+// if passes, check below:
 // if hand1 === rock && hand2 !== paper, return rock wins
 // else return paper wins
 
-// 2 if hand1 === paper && hand2 !== scissors, return paper wins
+// if hand1 === paper && hand2 !== scissors, return paper wins
 // else return scissors win
 
-// 3 if hand1 === scissors && hand2 !== rock, return scissors win
+// if hand1 === scissors && hand2 !== rock, return scissors win
 // else return rock wins
+
+// else return Did not enter rock, paper, or scissors! 
 
 'use strict';
 
