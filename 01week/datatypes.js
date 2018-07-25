@@ -13,7 +13,6 @@ numToString(25);
 // use parseInt on an argument passed thorugh a function
 const stringToNum = (string) => {
     return parseInt(string);
-    }
 }
 // 4. Write a JavaScript program that takes in different datatypes and prints out whether they are a:
 // Boolean
@@ -49,7 +48,7 @@ const twoTrue = (arg1, arg2) => {
 // 8. Write a JavaScript program that runs when both things are not true.
 // use an if statement within a function and use !== and &&
 const bothNotTrue = (arg1, arg2) => {
-  if (arg1 !== true && arg2 !== true) {
+  if (!arg1 && !arg2) {
     return 'Both things are not true!';
   }
 }
