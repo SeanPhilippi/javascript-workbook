@@ -14,19 +14,21 @@
 // have function rockPaperScissors evaluate hand1 and hand2 entries
 // code to make entries not case sensitive and to correct incorrect spelling, also trim unncessary spaces
 
+// check to make sure both hand1 and hand2 are equal to rock, paper, or scissors
+
 // first check if hand1 === hand2, return tie message
 
 // if passes, check below:
-// if hand1 === rock && hand2 !== paper, return rock wins
-// else return paper wins
+// if hand1 === rock && hand2 === scissors, return hand1 wins
+// else return hand2 wins
 
-// if hand1 === paper && hand2 !== scissors, return paper wins
-// else return scissors win
+// if hand1 === paper && hand2 === rock, return hand1 wins
+// else return hand2 wins
 
-// if hand1 === scissors && hand2 !== rock, return scissors win
-// else return rock wins
+// if hand1 === scissors && hand2 === paper, return hand1 wins
+// else return hand2 wins
 
-// else return Did not enter rock, paper, or scissors! 
+// else return Did not enter rock, paper, or scissors!
 
 'use strict';
 
@@ -40,38 +42,43 @@ const rl = readline.createInterface({
 function rockPaperScissors(hand1, hand2) {
 
   // write code to remove spaces and case sensitivity
-  hand1 = hand1.toLowerCase().trim();
-  hand2 = hand2.toLowerCase().trim();
+  const newhand1 = hand1.toLowerCase().trim();
+  const newhand2 = hand2.toLowerCase().trim();
   // check for incorrect spellings of 'scissors' and assign hand variable to 'scissors'
   if (hand1 === 'scisors' || hand1 === 'sissors' || hand1 === 'sisors' || hand1 === 'scsissors') {
     hand1 = 'scissors';
-  } if (hand2 === 'scisors' || hand2 === 'sissors' || hand2 === 'sisors' || hand2 === 'scsissors') {
-    hand2 = 'scissors';
-    // check for correct accepted inputs: rock, paper, or scissors
-  } if ((hand1 === 'rock' || hand1 === 'paper' || hand1 === 'scissors') &&
-  (hand2 === 'rock' || hand2 === 'paper' || hand2 === 'scissors')) {
-    // check for tie
-    if (hand1 == hand2) {
-      return 'Tie!';
-      // check other combos and return correct winner
-    } else if (hand1 == 'rock' && hand2 == 'paper') {
-      return 'Paper wins!';
-    } else if (hand1 == 'rock' && hand2 == 'scissors') {
-      return 'Rock wins!';
-    } else if (hand1 == 'paper' && hand2 == 'rock') {
-      return 'Paper wins!';
-    } else if (hand1 == 'paper' && hand2 == 'scissors') {
-      return 'Scissors win!';
-    } else if (hand1 == 'scissors' && hand2 == 'rock') {
-      return 'Rock wins!';
-    } else if (hand1 == 'scissors' && hand2 == 'paper') {
-      return 'Scissors win!';
-    }
-    // return informative error message for unaccepted inputs
-  } else {
-    return 'Did not enter "rock", "paper", or "scissors"!'
   }
-
+  if (hand2 === 'scisors' || hand2 === 'sissors' || hand2 === 'sisors' || hand2 === 'scsissors') {
+    hand2 = 'scissors';
+  } // check for correct accepted inputs: rock, paper, or scissors
+  if ((hand1 === 'rock' || hand1 === 'paper' || hand1 === 'scissors') &&
+      (hand2 === 'rock' || hand2 === 'paper' || hand2 === 'scissors')) {
+    // check for tie
+    if (hand1 === hand2) {
+      return 'Tie!';
+    }
+    if (hand1 === 'rock') {
+      if (hand2 === 'scissors') {
+        return 'Hand 1 wins!';
+      } else {
+        return 'Hand 2 wins!';
+      }
+    } if (hand1 === 'scissors') {
+      if (hand2 === 'paper') {
+        return 'Hand 1 wins!';
+      } else {
+        return 'Hand 2 wins!';
+      }
+    } if (hand1 === 'paper') {
+      if (hand2 === 'rock') {
+        return 'Hand 1 wins!';
+      } else {
+        return 'Hand 2 wins!';
+      }
+    }
+  } else {
+    return 'Did not enter "rock", "paper", or "scissors"!';
+  }
   console.log(hand1, hand2);
 }
 
