@@ -1,3 +1,12 @@
+// white boarding
+//
+// function called ticTacToe should take 2 inputs which are the coordinates on the board where the mark should go
+// make lastPlayer variable that stores where X or O went last, so the turn can be switched.
+// create winPatterns array that store all win coordinate combos that can be looped through after each board marking
+// function checkWin() that returns a win message and ends the game when a board pattern matches a winPattern
+
+
+
 'use strict';
 
 const assert = require('assert');
