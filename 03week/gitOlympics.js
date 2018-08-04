@@ -1,11 +1,11 @@
 'use strict';
 
-let nameArr = ['Sean', 'Rob', 'Bob', 'Peter', 'John'];
+let users = ['Sean', 'Rob', 'Bob', 'Peter', 'John'];
 const printListOfOlympians=(nameArr)=>{
-nameArr.forEach(function(entry){
+nameArr.forEach((entry)=>{
 console.log(nameArr);
 });
 
 }
 
-printListOfOlympians(nameArr);
+printListOfOlympians(users);
