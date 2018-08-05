@@ -39,11 +39,12 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function rockPaperScissors(hand1, hand2) {
+function rockPaperScissors(input1, input2) {
 
   // write code to remove spaces and case sensitivity
-  const newhand1 = hand1.toLowerCase().trim();
-  const newhand2 = hand2.toLowerCase().trim();
+  // using let in place of const because these variables need to be able to be reassigned if mispelled.  
+  let hand1 = input1.toLowerCase().trim();
+  let hand2 = input2.toLowerCase().trim();
   // check for incorrect spellings of 'scissors' and assign hand variable to 'scissors'
   if (hand1 === 'scisors' || hand1 === 'sissors' || hand1 === 'sisors' || hand1 === 'scsissors') {
     hand1 = 'scissors';
