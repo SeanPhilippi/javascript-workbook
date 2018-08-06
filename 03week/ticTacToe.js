@@ -40,8 +40,15 @@ const turnSwitcher = () => {
   }
 }
 
-const horizontalWin = (row, column) => {
-  board[row][column] = 
+const horizontalWin = () => {
+  const horizontalLine = {
+    win1: board[0][0] === board[0][1] && board[0][0] === board[0][2],
+    win2: board[1][0] === board[1][1] && board[1][0] === board[1][2],
+    win3: board[2][0] === board[2][1] && board[2][0] === board[2][2],
+  }
+  if (horizontalLine.win1 || horizontalLine.win2 || horizontalLine.win3) {
+    return 'Player '+ playerTurn ' wins!';
+  }
 
 }
 
@@ -54,11 +61,12 @@ const diagonalWin = () => {
 }
 
 const checkForWin = () => {
-  // Your code here
+  horizontalWin();
 }
 
 const ticTacToe = (row, column) => {
   board[row][column] = playerTurn;
+  checkForWin();
   turnSwitcher();
   console.log(board[0].slice(0,2))
 }
