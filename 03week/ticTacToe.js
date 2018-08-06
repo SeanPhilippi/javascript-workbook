@@ -41,13 +41,12 @@ const turnSwitcher = () => {
 }
 
 const horizontalWin = () => {
-  const horizontalLine = {
-    win1: board[0][0] === board[0][1] && board[0][0] === board[0][2],
-    win2: board[1][0] === board[1][1] && board[1][0] === board[1][2],
-    win3: board[2][0] === board[2][1] && board[2][0] === board[2][2],
-  }
-  if (horizontalLine.win1 || horizontalLine.win2 || horizontalLine.win3) {
-    return 'Player '+ playerTurn ' wins!';
+    const win1 = (board[0][0] && board[0][1] && board[0][2]) === playerTurn;
+    const win2 = (board[1][0] && board[1][1] && board[1][2]) === playerTurn;
+    const win3 = (board[2][0] && board[2][1] && board[2][2]) === playerTurn;
+
+  if (win1 || win2 || win3) {
+    return true;
   }
 
 }
@@ -61,23 +60,33 @@ const diagonalWin = () => {
 }
 
 const checkForWin = () => {
-  horizontalWin();
+  if (horizontalWin()) {
+    console.log('Player '+ playerTurn+ ' wins!');
+  } else if (verticalWin()) {
+    console.log('Player '+ playerTurn+ ' wins!');
+  } else if (diagonalWin()) {
+    console.log('Player '+ playerTurn+ ' wins!');
+  }
 }
 
 const ticTacToe = (row, column) => {
   board[row][column] = playerTurn;
   checkForWin();
-  turnSwitcher();
-  console.log(board[0].slice(0,2))
+  if (!horizontalWin() && !verticalWin() && !diagonalWin()) {
+    turnSwitcher();
+    getPrompt();
+  }
 }
+
 
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
+  // rl read line
   rl.question('row: ', (row) => {
     rl.question('column: ', (column) => {
       ticTacToe(row, column);
-      getPrompt();
+
     });
   });
 
