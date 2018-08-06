@@ -1,3 +1,13 @@
+// the plan
+
+// chose stacks for what array to take from and what array to place in
+// take last item of startStack array and place at the end of endStack array if last item of endStack array is greater than startStack item
+// check for win
+// print stacks
+// reset game, allow for inputs again
+// if win detected, end game
+
+
 'use strict';
 // test comment
 const assert = require('assert');
