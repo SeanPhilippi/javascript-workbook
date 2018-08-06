@@ -1,13 +1,11 @@
 // white boarding
 //
-// function called ticTacToe should take 2 inputs which are the coordinates on the board where the mark should go
-// use ternary for switching value of playerTurn variable
-// create winPatterns array that store all win coordinate combos that can be looped through after each board marking
-// function checkWin() that returns a win message and ends the game when a board pattern matches a winPattern
-
-
-
-
+// chose coordinates for placing value of playerTurn and set playerTurn = to those coordinates
+// create turnSwitcher function that changes playerTurn value
+// run checkWin function that looks at the board to see if different win patterns have been fulfilled
+// run turnSwitcher
+// reset game back to choosing coordinates
+// when win is detected, end game
 
 'use strict';
 
@@ -34,8 +32,19 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
+const turnSwitcher = () => {
+  if (playerTurn === 'X') {
+    playerTurn = 'O';
+  } else {
+    playerTurn = 'X';
+  }
+}
+
 function horizontalWin() {
-  // Your code here
+  const hortizontalLine = board[0].slice(1, 2)
+  if (horizontalLine) {
+    return 'You win!';
+  }
 }
 
 function verticalWin() {
@@ -51,7 +60,9 @@ function checkForWin() {
 }
 
 function ticTacToe(row, column) {
-  // Your code here
+  board[row][column] = playerTurn;
+  turnSwitcher();
+  console.log(board[0].slice(0,2))
 }
 
 function getPrompt() {
@@ -83,7 +94,7 @@ if (typeof describe === 'function') {
     });
     it('should check for vertical wins', () => {
       board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
-      assert.equal(verticalWin(), true);
+      assert.equal(verticalWin(), true);2
     });
     it('should check for horizontal wins', () => {
       board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
