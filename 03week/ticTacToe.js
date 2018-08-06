@@ -40,32 +40,30 @@ const turnSwitcher = () => {
   }
 }
 
-function horizontalWin() {
-  const hortizontalLine = board[0].slice(1, 2)
-  if (horizontalLine) {
-    return 'You win!';
-  }
+const horizontalWin = (row, column) => {
+  board[row][column] = 
+
 }
 
-function verticalWin() {
+const verticalWin = () => {
   // Your code here
 }
 
-function diagonalWin() {
+const diagonalWin = () => {
   // Your code here
 }
 
-function checkForWin() {
+const checkForWin = () => {
   // Your code here
 }
 
-function ticTacToe(row, column) {
+const ticTacToe = (row, column) => {
   board[row][column] = playerTurn;
   turnSwitcher();
   console.log(board[0].slice(0,2))
 }
 
-function getPrompt() {
+const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
   rl.question('row: ', (row) => {
