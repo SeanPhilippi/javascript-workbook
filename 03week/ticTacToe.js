@@ -41,9 +41,10 @@ const turnSwitcher = () => {
 }
 
 const horizontalWin = () => {
-    const win1 = (board[0][0] && board[0][1] && board[0][2]) === playerTurn;
-    const win2 = (board[1][0] && board[1][1] && board[1][2]) === playerTurn;
-    const win3 = (board[2][0] && board[2][1] && board[2][2]) === playerTurn;
+
+  const win1 = board[0][0] !== ' ' && board[0][0] === board[0][1] && board[0][0] === board[0][2];
+  const win2 = board[1][0] !== ' ' && board[1][0] === board[1][1] && board[1][0] === board[1][2];
+  const win3 = board[2][0] !== ' ' && board[2][0] === board[2][1] && board[2][0] === board[2][2];
 
   if (win1 || win2 || win3) {
     return true;
@@ -52,20 +53,34 @@ const horizontalWin = () => {
 }
 
 const verticalWin = () => {
-  // Your code here
+  const win4 = board[0][0] !== ' ' && board[0][0] === board[1][0] && board[0][0] === board[2][0];
+  const win5 = board[0][1] !== ' ' && board[0][1] === board[1][1] && board[0][1] === board[2][1];
+  const win6 = board[0][2] !== ' ' && board[0][2] === board[1][2] && board[0][2] === board[2][2];
+
+  if (win4 || win5 || win6) {
+    return true;
+  }
 }
 
 const diagonalWin = () => {
-  // Your code here
+  const win7 = board[0][0] !== ' ' && board[0][0] === board[1][1] && board[0][0] === board[2][2];
+  const win8 = board[2][0] !== ' ' && board[2][0] === board[1][1] && board[2][0] === board[0][2];
+
+  if (win7 || win8) {
+    return true;
+  }
 }
 
 const checkForWin = () => {
   if (horizontalWin()) {
     console.log('Player '+ playerTurn+ ' wins!');
+    return true;
   } else if (verticalWin()) {
     console.log('Player '+ playerTurn+ ' wins!');
+    return true;
   } else if (diagonalWin()) {
     console.log('Player '+ playerTurn+ ' wins!');
+    return true;
   }
 }
 
