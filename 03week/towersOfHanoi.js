@@ -56,19 +56,19 @@ function isLegal() {
 
 }
 
-
 console.log(stacks.c);
 
 
 function checkForWin() {
-  const winArr = [4, 3, 2, 1];
-  let stackC = stacks.c;
-  for(let i = winArr.length; i--;) {
-    if(winArr[i] !== stackC[i])
-      return false;
+  if (stacks.b.length !== 4 && stacks.c.length !== 4) {
+    return false
+  } else {
+    return true
   }
-  return true;
 }
+
+
+
 
 function towersOfHanoi(startStack, endStack) {
   movePiece(startStack, endStack);
