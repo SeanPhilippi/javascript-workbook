@@ -30,13 +30,21 @@ function printStacks() {
 }
 
 function movePiece(startStack, endStack) {
-  let grabbedBlock = stacks[startStack].pop();
-  let dropStack = 
-  console.log(stacks[Object.keys(endStack)[endStack.length - 1]]);
-  console.log(stacks[startStack][startStack.length - 1]);
-  console.log(grabbedBlock);
-  if (stacks[endStack][stacks[endStack].length - 1] > grabbedBlock || endStack[endStack.length - 1] === '') {
-    stacks["endStack"].push(grabbedBlock);
+
+  let moveFrom = stacks[startStack];
+  let moveTo = stacks[endStack];
+  console.log('moveTo: '+ moveTo);
+  console.log('moveFrom: '+ moveFrom);
+  if (moveTo[moveTo.length - 1] > moveFrom[moveFrom.length - 1] || moveTo.length === 0) {
+    let grabbedBlock = moveFrom.pop();
+    // console.log('grabbedBlock: '+ grabbedBlock);
+    moveTo.push(grabbedBlock);
+    checkForWin();
+    if(checkForWin()) {
+      console.log('You win!');
+    }
+  } else {
+    console.log("bigger numbers can't follow smaller numbers!");
   }
 
 
@@ -48,9 +56,18 @@ function isLegal() {
 
 }
 
-function checkForWin() {
-  // Your code here
 
+console.log(stacks.c);
+
+
+function checkForWin() {
+  const winArr = [4, 3, 2, 1];
+  let stackC = stacks.c;
+  for(let i = winArr.length; i--;) {
+    if(winArr[i] !== stackC[i])
+      return false;
+  }
+  return true;
 }
 
 function towersOfHanoi(startStack, endStack) {
