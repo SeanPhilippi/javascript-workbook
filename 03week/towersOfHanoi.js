@@ -30,9 +30,16 @@ function printStacks() {
 }
 
 function movePiece(startStack, endStack) {
-  console.log(startStack)
   let grabbedBlock = stacks[startStack].pop();
-  stacks[endStack].push(grabbedBlock);
+  let dropStack = 
+  console.log(stacks[Object.keys(endStack)[endStack.length - 1]]);
+  console.log(stacks[startStack][startStack.length - 1]);
+  console.log(grabbedBlock);
+  if (stacks[endStack][stacks[endStack].length - 1] > grabbedBlock || endStack[endStack.length - 1] === '') {
+    stacks["endStack"].push(grabbedBlock);
+  }
+
+
 
 }
 
