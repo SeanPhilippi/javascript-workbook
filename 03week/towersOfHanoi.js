@@ -23,8 +23,8 @@ let stacks = {
   c: []
 };
 
-let stackB = stacks.b;
-let stackC = stacks.c;
+const stackB = stacks.b;
+const stackC = stacks.c;
 
 // print the stacks using console.log
 const printStacks = () => {
@@ -35,11 +35,11 @@ const printStacks = () => {
 
 // move pieces using .pop and .push
 const movePiece = (moveTo, moveFrom) => {
-  let grabbedBlock = moveFrom.pop();
+  const grabbedBlock = moveFrom.pop();
   moveTo.push(grabbedBlock);
 }
 
-// allows small numbers to follow big numbers, and disallows big numbers to follow small numbers
+// allows small numbers to follow big numbers, and disallows big numbers to follow small number
 const isLegal = (moveTo, moveFrom) => {
   if (moveTo[moveTo.length - 1] > moveFrom[moveFrom.length - 1] || moveTo.length === 0) {
     return true;
@@ -73,8 +73,8 @@ const checkForWin = () => {
 
 // call movePiece function so prompt inputs result in numbers being moved
 const towersOfHanoi = (startStack, endStack) => {
-  let moveFrom = stacks[startStack];
-  let moveTo = stacks[endStack];
+  const moveFrom = stacks[startStack];
+  const moveTo = stacks[endStack];
   if(isLegal(moveTo, moveFrom)) {
     movePiece(moveTo, moveFrom);
     checkForWin(stackB, stackC);
