@@ -23,6 +23,9 @@ let stacks = {
   c: []
 };
 
+let stackB = stacks.b;
+let stackC = stacks.c;
+
 // print the stacks using console.log
 const printStacks = () => {
   console.log("a: " + stacks.a);
@@ -31,11 +34,12 @@ const printStacks = () => {
 }
 
 // move pieces using .pop and .push
-let movePiece = (moveTo, moveFrom) => {
+const movePiece = (moveTo, moveFrom) => {
   let grabbedBlock = moveFrom.pop();
   moveTo.push(grabbedBlock);
 }
 
+// allows small numbers to follow big numbers, and disallows big numbers to follow small numbers
 const isLegal = (moveTo, moveFrom) => {
   if (moveTo[moveTo.length - 1] > moveFrom[moveFrom.length - 1] || moveTo.length === 0) {
     return true;
@@ -43,8 +47,8 @@ const isLegal = (moveTo, moveFrom) => {
     console.log("bigger numbers can't follow smaller numbers!");
     return false;
   }
-  // check if checkForWin is true, if so print win statement and reset stacks
 }
+
 // reset stacks after a win
 const resetGame = () => {
   stacks = {
@@ -56,21 +60,24 @@ const resetGame = () => {
 
 // check for a win by checking length of arrays B and C
 const checkForWin = () => {
-  if (stacks.b.length !== 4 && stacks.c.length !== 4) {
-    return false
+  console.log(stackB);
+  console.log(stackC);
+  if (stackB.length !== 4 && stackC.length !== 4) {
+    console.log('false');
+    return false;
   } else {
-    return true
+    console.log('You win!');
+    return true;
   }
 }
 
 // call movePiece function so prompt inputs result in numbers being moved
 const towersOfHanoi = (startStack, endStack) => {
-
   let moveFrom = stacks[startStack];
   let moveTo = stacks[endStack];
   if(isLegal(moveTo, moveFrom)) {
     movePiece(moveTo, moveFrom);
-    checkForWin();
+    checkForWin(stackB, stackC);
     if (checkForWin()) {
       resetGame();
     }
