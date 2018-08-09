@@ -4,8 +4,8 @@
 // take last item of startStack array and place at the end of endStack array if last item of endStack array is greater than startStack item
 // check for win
 // print stacks
-// reset game, allow for inputs again
-// if win detected, end game
+// print prompt
+// reset stacks if there is a win by calling resetGame() function
 
 
 'use strict';
@@ -23,43 +23,39 @@ let stacks = {
   c: []
 };
 
-function printStacks() {
+// print the stacks using console.log
+const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
-function movePiece(startStack, endStack) {
+// move pieces using .pop and .push
+let movePiece = (moveTo, moveFrom) => {
+  let grabbedBlock = moveFrom.pop();
+  moveTo.push(grabbedBlock);
+}
 
-  let moveFrom = stacks[startStack];
-  let moveTo = stacks[endStack];
-  console.log('moveTo: '+ moveTo);
-  console.log('moveFrom: '+ moveFrom);
+const isLegal = (moveTo, moveFrom) => {
   if (moveTo[moveTo.length - 1] > moveFrom[moveFrom.length - 1] || moveTo.length === 0) {
-    let grabbedBlock = moveFrom.pop();
-    // console.log('grabbedBlock: '+ grabbedBlock);
-    moveTo.push(grabbedBlock);
-    checkForWin();
-    if(checkForWin()) {
-      console.log('You win!');
-    }
+    return true;
   } else {
     console.log("bigger numbers can't follow smaller numbers!");
+    return false;
   }
-
-
-
+  // check if checkForWin is true, if so print win statement and reset stacks
+}
+// reset stacks after a win
+const resetGame = () => {
+  stacks = {
+    a: [4, 3, 2, 1],
+    b: [],
+    c: []
+  }
 }
 
-function isLegal() {
-  // Your code here
-
-}
-
-console.log(stacks.c);
-
-
-function checkForWin() {
+// check for a win by checking length of arrays B and C
+const checkForWin = () => {
   if (stacks.b.length !== 4 && stacks.c.length !== 4) {
     return false
   } else {
@@ -67,15 +63,22 @@ function checkForWin() {
   }
 }
 
+// call movePiece function so prompt inputs result in numbers being moved
+const towersOfHanoi = (startStack, endStack) => {
 
-
-
-function towersOfHanoi(startStack, endStack) {
-  movePiece(startStack, endStack);
-
+  let moveFrom = stacks[startStack];
+  let moveTo = stacks[endStack];
+  if(isLegal(moveTo, moveFrom)) {
+    movePiece(moveTo, moveFrom);
+    checkForWin();
+    if (checkForWin()) {
+      resetGame();
+    }
+  }
 }
 
-function getPrompt() {
+// print stacks and give prompts that allow user to input a strart stack and end stack
+const getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
     rl.question('end stack: ', (endStack) => {
