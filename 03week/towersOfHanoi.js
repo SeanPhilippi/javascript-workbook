@@ -61,11 +61,12 @@ const resetGame = () => {
 }
 
 // check for a win by checking length of arrays B and C
-const checkForWin = () => {
-  if (stackB.length !== 4 && stackC.length !== 4) {
-    console.log('checkForWin: false');
+const checkForWin = (arg1, arg2) => {
+  console.log('checkForWin is false: ', arg1.length !== 4 && arg2.length !== 4);
+  if (arg1.length !== 4 && arg2.length !== 4) {
     return false;
   } else {
+    console.log('checkForWin is true: ', arg1.length !== 4 && arg2.length !== 4)
     console.log('You win!');
     return true;
   }
@@ -79,9 +80,9 @@ const towersOfHanoi = (startStack, endStack) => {
   if(isLegal(startStack, endStack)) {
     movePiece(moveTo, moveFrom);
     checkForWin(stacks.b, stacks.c);
-    if (checkForWin()) {
-      resetGame();
-    }
+    // if (checkForWin()) {
+    //   resetGame();
+    // }
   }
 }
 
