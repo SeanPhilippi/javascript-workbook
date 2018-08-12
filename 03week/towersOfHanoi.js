@@ -23,9 +23,6 @@ let stacks = {
   c: []
 };
 
-const stackB = stacks.b;
-const stackC = stacks.c;
-
 // print the stacks using console.log
 const printStacks = () => {
   console.log("a: " + stacks.a);
@@ -40,15 +37,11 @@ const movePiece = (moveTo, moveFrom) => {
 }
 
 // allows small numbers to follow big numbers, and disallows big numbers to follow small number
+// also allows pushing to an empty array
 const isLegal = (startStack, endStack) => {
-  console.log('endStack value: ' + stacks[endStack][stacks[endStack].length - 1])
-  console.log('startStack value: ' + stacks[startStack][stacks[startStack].length - 1])
-  if (stacks[endStack][stacks[endStack].length - 1] > stacks[startStack][stacks[startStack].length - 1] || stacks[endStack].length === 0) {
-    return true;
-  } else {
-    console.log("bigger numbers can't follow smaller numbers!");
-    return false;
-  }
+  // console.log('endStack value: ' + stacks[endStack][stacks[endStack].length - 1])
+  // console.log('startStack value: ' + stacks[startStack][stacks[startStack].length - 1])
+  return (stacks[endStack][stacks[endStack].length - 1] > stacks[startStack][stacks[startStack].length - 1] || stacks[endStack].length === 0)
 }
 
 // reset stacks after a win
@@ -61,28 +54,31 @@ const resetGame = () => {
 }
 
 // check for a win by checking length of arrays B and C
-const checkForWin = (arg1, arg2) => {
-  console.log('checkForWin is false: ', arg1.length !== 4 && arg2.length !== 4);
-  if (arg1.length !== 4 && arg2.length !== 4) {
+const checkForWin = () => {
+  // console.log('checkForWin is false: ', stacks.b.length !== 4 && stacks.c.length !== 4);
+  if (stacks.b.length !== 4 && stacks.c.length !== 4) {
+    // console.log('checkForWin: false');
     return false;
   } else {
-    console.log('checkForWin is true: ', arg1.length !== 4 && arg2.length !== 4)
+    // console.log('checkForWin is true: ', stacks.b.length !== 4 && stacks.c.length !== 4)
     console.log('You win!');
     return true;
   }
 }
 
-// call movePiece function so prompt inputs result in numbers being moved
+
 const towersOfHanoi = (startStack, endStack) => {
-  console.log('stacksB:' + stacks.b)
   const moveFrom = stacks[startStack];
   const moveTo = stacks[endStack];
+  // take startStack and endStack inputs and check if legal with isLegal function
   if(isLegal(startStack, endStack)) {
+    // if isLegal is true, allow a piece to be moved
     movePiece(moveTo, moveFrom);
-    checkForWin(stacks.b, stacks.c);
-    // if (checkForWin()) {
-    //   resetGame();
-    // }
+    checkForWin();
+    // if winner detected, reset stacks
+    if (stacks.b.length === 4 || stacks.c.length === 4) {
+      resetGame();
+    }
   }
 }
 
