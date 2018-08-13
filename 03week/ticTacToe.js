@@ -32,20 +32,14 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
-const turnSwitcher = () => {
-  if (playerTurn === 'X') {
-    playerTurn = 'O';
-  } else {
-    playerTurn = 'X';
-  }
-}
+const turnSwitcher = () => playerTurn === 'X' ? playerTurn = 'O' : playerTurn = 'X';
 
 const horizontalWin = () => {
   // check that index in array has a mark in it
   const win1 = board[0][0] !== ' ' && board[0][0] === board[0][1] && board[0][0] === board[0][2];
   const win2 = board[1][0] !== ' ' && board[1][0] === board[1][1] && board[1][0] === board[1][2];
   const win3 = board[2][0] !== ' ' && board[2][0] === board[2][1] && board[2][0] === board[2][2];
-  
+
   if (win1 || win2 || win3) {
     return true;
   }
