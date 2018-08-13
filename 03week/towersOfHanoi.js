@@ -51,6 +51,7 @@ const resetGame = () => {
     b: [],
     c: []
   }
+  return true;
 }
 
 // check for a win by checking length of arrays B and C
@@ -103,7 +104,6 @@ if (typeof describe === 'function') {
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
-
   describe('#isLegal()', () => {
     it('should not allow an illegal move', () => {
       stacks = {
@@ -128,6 +128,25 @@ if (typeof describe === 'function') {
       assert.equal(checkForWin(), true);
       stacks = { a: [1], b: [4, 3, 2], c: [] };
       assert.equal(checkForWin(), false);
+    });
+  });
+
+  // my additional tests
+  describe('#resetGame()', () => {
+    it('should reset stacks', () => {
+      stacks = { a: [], b: [4, 3, 2, 1], c: [] };
+      assert.equal(resetGame(), true);
+    });
+    });
+
+  describe('#isLegal()', () => {
+    it('should allow piece to be moved to empty stack', () => {
+      stacks = {
+        a: [4, 3, 2, 1],
+        b: [],
+        c: []
+      };
+      assert.equal(isLegal('a', 'b'), true);
     });
   });
 
