@@ -38,11 +38,8 @@ const movePiece = (moveTo, moveFrom) => {
 
 // allows small numbers to follow big numbers, and disallows big numbers to follow small number
 // also allows pushing to an empty array
-const isLegal = (startStack, endStack) => {
-  // console.log('endStack value: ' + stacks[endStack][stacks[endStack].length - 1])
-  // console.log('startStack value: ' + stacks[startStack][stacks[startStack].length - 1])
-  return (stacks[endStack][stacks[endStack].length - 1] > stacks[startStack][stacks[startStack].length - 1] || stacks[endStack].length === 0)
-}
+const isLegal = (startStack, endStack) => stacks[endStack][stacks[endStack].length - 1] >
+stacks[startStack][stacks[startStack].length - 1]|| stacks[endStack].length === 0;
 
 // reset stacks after a win
 const resetGame = () => {
@@ -55,17 +52,7 @@ const resetGame = () => {
 }
 
 // check for a win by checking length of arrays B and C
-const checkForWin = () => {
-  // console.log('checkForWin is false: ', stacks.b.length !== 4 && stacks.c.length !== 4);
-  if (stacks.b.length !== 4 && stacks.c.length !== 4) {
-    // console.log('checkForWin: false');
-    return false;
-  } else {
-    // console.log('checkForWin is true: ', stacks.b.length !== 4 && stacks.c.length !== 4)
-    console.log('You win!');
-    return true;
-  }
-}
+const checkForWin = () => stacks.b.length === 4 || stacks.c.length === 4;
 
 
 const towersOfHanoi = (startStack, endStack) => {
@@ -75,9 +62,8 @@ const towersOfHanoi = (startStack, endStack) => {
   if(isLegal(startStack, endStack)) {
     // if isLegal is true, allow a piece to be moved
     movePiece(moveTo, moveFrom);
-    checkForWin();
     // if winner detected, reset stacks
-    if (stacks.b.length === 4 || stacks.c.length === 4) {
+    if (checkForWin()) {
       resetGame();
     }
   }
