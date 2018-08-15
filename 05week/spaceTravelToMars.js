@@ -16,7 +16,10 @@ class CrewMember {
     this.specialSkill = specialSkill;
     this.ship = null;
   }
-
+  enterShip = (ship) => {
+    ship.crew.push(this);
+    this.ship = ship.
+  }
 }
 
 class Ship {
@@ -26,13 +29,16 @@ class Ship {
     this.ability = ability;
     this.crew = [];
   }
-  enterShip = () => {
-    ship.crew.push(this);
-  }
   missionStatement = () => {
     console.log(this.)
   }
 }
+
+const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
+console.log(crewMember1.name);
+
+const mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
+crewMember1.enterShip(mav);
 
 
 
