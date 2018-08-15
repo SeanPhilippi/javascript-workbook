@@ -9,7 +9,34 @@ let jobTypes = {
   programmer: 'Any Ship!'
 };
 
-// Your code here
+class CrewMember {
+  constructor(name, job, specialSkill, ship) {
+    this.name = name;
+    this.job = job;
+    this.specialSkill = specialSkill;
+    this.ship = null;
+  }
+
+}
+
+class Ship {
+  constructor(name, type, ability, crew) {
+    this.name = name;
+    this.type = type;
+    this.ability = ability;
+    this.crew = [];
+  }
+  enterShip = () => {
+    ship.crew.push(this);
+  }
+  missionStatement = () => {
+    console.log(this.)
+  }
+}
+
+
+
+
 
 //tests
 
