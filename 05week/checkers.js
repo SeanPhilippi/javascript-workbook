@@ -1,3 +1,25 @@
+//setBoard put pieces on board
+
+// draw on paper a board and the coordinates
+
+// switchPlayer()
+// isValid()
+// can't move to white spaces, throw something like a -1 in those spots
+// can't move off board, so no coordinates with an 8 or 9.
+// moveChecker()
+
+// capturePiece()
+// delete pieces and ++ a counter for each team
+// checkForWin()
+// which ever color has the largest number captured loses
+// resetGame()
+
+// 1 - 169
+
+// 9 or 11 is always the difference depending on the direction
+
+
+
 'use strict';
 
 const assert = require('assert');
@@ -92,6 +114,7 @@ if (typeof describe === 'function') {
   describe('Game.moveChecker()', () => {
     it('should move a checker', () => {
       assert(!game.board.grid[4][1]);
+      // 5 is x coordinate, 0 is y coordinate for '50'
       game.moveChecker('50', '41');
       assert(game.board.grid[4][1]);
       game.moveChecker('21', '30');
