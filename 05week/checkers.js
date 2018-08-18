@@ -8,9 +8,14 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
-  // Your code here
+
+
+const Checker = () => {
+  const moveChecker = (whichPiece, toWhere) => {
+
+  }
 }
+
 
 class Board {
   constructor() {
@@ -37,7 +42,7 @@ class Board {
       for (let column = 0; column < 8; column++) {
         // if the location is "truthy" (contains a checker piece, in this case)
         if (this.grid[row][column]) {
-          // push the symbol of the check in that location into the array
+          // push the symbol of the checker in that location into the array
           rowOfCheckers.push(this.grid[row][column].symbol);
         } else {
           // just push in a blank space
@@ -53,6 +58,10 @@ class Board {
   }
 
   // Your code here
+  setBoard() {
+    let symbol = 'B';
+    for (let column)
+  }
 }
 
 class Game {
@@ -64,7 +73,7 @@ class Game {
   }
 }
 
-function getPrompt() {
+const getPrompt = () => {
   game.board.viewGrid();
   rl.question('which piece?: ', (whichPiece) => {
     rl.question('to where?: ', (toWhere) => {
@@ -103,6 +112,7 @@ if (typeof describe === 'function') {
     it('should be able to jump over and kill another checker', () => {
       game.moveChecker('30', '52');
       assert(game.board.grid[5][2]);
+      // space where rival checker is becomes falsy (piece is deleted)
       assert(!game.board.grid[4][1]);
       assert.equal(game.board.checkers.length, 23);
     });

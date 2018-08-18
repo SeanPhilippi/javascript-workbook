@@ -1,5 +1,10 @@
 setBoard()
   put pieces on board
+  use a for loop and loop through rows arrays for columns 1-3
+  push symbol 'B' at odd numbers for row1, even numbers for row2, and odd again for row3
+  push symbol 'W' at even number for row5, odd numbers for row6, and even again for row7
+  viewGrid() already has loops set up to push var symbol into grid array so maybe just need a way
+    to switch symbol and tell it when to push 'W' and 'B'
 
 getPrompt()
   viewGrid()
