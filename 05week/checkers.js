@@ -7,19 +7,24 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
-
-
-const Checker = () => {
-  const moveChecker = (whichPiece, toWhere) => {
-
+class Checker {
+  constructor(color) {
+    if (color === 'white') {
+      this.symbol = 'W';
+    } else {
+      this.symbol = 'B';
+    }
   }
+
+  // const moveChecker = (whichPiece, toWhere) => {
 }
+
 
 
 class Board {
   constructor() {
-    this.grid = []
+    this.checkers = [];
+    this.grid = [];
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -58,9 +63,59 @@ class Board {
   }
 
   // Your code here
-  setBoard() {
-    let symbol = 'B';
-    for (let column)
+  createCheckers() {
+    const whitePosition = [
+      // 12 arrays, indexed 0-11
+      // within each array, (row) and (column) indexed at 0 and 1
+      [0, 1],
+      [0, 3],
+      [0, 5],
+      [0, 7],
+      [1, 0],
+      [1, 2],
+      [1, 4],
+      [1, 6],
+      [2, 1],
+      [2, 3],
+      [2, 5],
+      [2, 7]
+    ]
+    // looping through whitePosition to grab row and column coordinates
+    // and assign them to whiteRow and whiteColumn variables
+    for (let i = 0; i < 12; i++) {
+      let whiteRow = whitePosition[i][0];
+      let whiteColumn = whitePosition[i][1];
+      // new Checker class created with 'white' put in for color value
+      // this is to tell Checker function what symbol to push to board
+      let whiteChecker = new Checker('white');
+      this.checkers.push(whiteChecker);
+      // console.log(whiteRow);
+      this.grid[whiteRow][whiteColumn] = whiteChecker;
+
+    }
+    const blackPosition = [
+      [5, 0],
+      [5, 2],
+      [5, 4],
+      [5, 6],
+      [6, 1],
+      [6, 3],
+      [6, 5],
+      [6, 7],
+      [7, 0],
+      [7, 2],
+      [7, 4],
+      [7, 6]
+    ]
+    for (let i = 0; i < 12; i++) {
+      let blackRow = blackPosition[i][0];
+      let blackColumn = blackPosition[i][1];
+      let blackChecker = new Checker('black');
+      this.checkers.push(blackChecker);
+      // console.log(blackRow);
+      this.grid[blackRow][blackColumn] = blackChecker;
+      // console.log(this.grid[blackRow][blackColumn] = blackChecker);
+    }
   }
 }
 
@@ -70,6 +125,7 @@ class Game {
   }
   start() {
     this.board.createGrid();
+    this.board.createCheckers();
   }
 }
 
