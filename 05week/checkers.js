@@ -16,7 +16,6 @@ class Checker {
     }
   }
 
-  // const moveChecker = (whichPiece, toWhere) => {
 }
 
 
@@ -24,7 +23,9 @@ class Checker {
 class Board {
   constructor() {
     this.checkers = [];
+    console.log('checkers: ', this.checkers)
     this.grid = [];
+    console.log('grid: ', this.grid)
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -47,7 +48,8 @@ class Board {
       for (let column = 0; column < 8; column++) {
         // if the location is "truthy" (contains a checker piece, in this case)
         if (this.grid[row][column]) {
-          // push the symbol of the checker in that location into the array
+          // push the symbol of the checker at [row, column] coordinates
+          // in grid array onto that position in the rowofCheckers array
           rowOfCheckers.push(this.grid[row][column].symbol);
         } else {
           // just push in a blank space
@@ -63,7 +65,7 @@ class Board {
   }
 
   // Your code here
-  createCheckers() {
+  setBoard() {
     const whitePosition = [
       // 12 arrays, indexed 0-11
       // within each array, (row) and (column) indexed at 0 and 1
@@ -115,6 +117,9 @@ class Board {
       // console.log(blackRow);
       this.grid[blackRow][blackColumn] = blackChecker;
       // console.log(this.grid[blackRow][blackColumn] = blackChecker);
+      // console.log('checkers: ', this.checkers);
+      // console.log('blackChecker: ', blackChecker);
+      // console.log('grid: ', this.grid);
     }
   }
 }
@@ -125,7 +130,26 @@ class Game {
   }
   start() {
     this.board.createGrid();
-    this.board.createCheckers();
+    this.board.setBoard();
+  }
+  moveChecker(whichPiece, toWhere) {
+    // .map calls Number() on each element in the array created by .split()
+    let whichCoords = whichPiece.split('').map(Number);
+    console.log('whichCoords: ', whichCoords);
+    let toCoords = toWhere.split('').map(Number);
+    console.log('toCoords: ', toCoords);
+    console.log('whichCoords row: ', game.board.grid[whichCoords[0]]);
+    console.log('whichCoords column: ', game.board.grid[whichCoords[1]]);
+    console.log('toCoords row: ', toCoords[0]);
+    console.log('toCoords row: ', toCoords[1]);
+    game.board.grid[whichCoords[0]] = toCoords[0];
+    game.board.grid[whichCoords[1]] = toCoords[1];
+    // new Checker('white');
+    // whichCoords[0] =
+
+  }
+  isLegal() {
+
   }
 }
 
@@ -158,10 +182,13 @@ if (typeof describe === 'function') {
     it('should move a checker', () => {
       assert(!game.board.grid[4][1]);
       // 5 is x coordinate, 0 is y coordinate for '50'
+      // moving black checker north one space
       game.moveChecker('50', '41');
       assert(game.board.grid[4][1]);
+      // moving white checker south one space
       game.moveChecker('21', '30');
       assert(game.board.grid[3][0]);
+      // moving another black checker north one space
       game.moveChecker('52', '43');
       assert(game.board.grid[4][3]);
     });
