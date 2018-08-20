@@ -18,6 +18,8 @@ isLegal()
   toWhere must = whichPiece +9 or whichPiece +11
   else if space is falsey (!null), toWhere must === legalSpaces && toWhere === whichPiece + 18 or + 22
 
+  if +\-9 or +\-11 === truthy (occupied), allow +/-18 or +/-22
+
   can't move to blank spaces
   can't move in an occupied space
   can't move off board, so no coordinates containing an 8 or 9
