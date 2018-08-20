@@ -144,6 +144,7 @@ class Game {
         || Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
           this.board.grid[whichCoords[0]][whichCoords[1]] = null;
           this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
+          // allow capture if +/-18 or +/-22 is null and +/-9 or +/-11 is truthy (!null)
         } else {
           console.log('Not a legal move');
         }
