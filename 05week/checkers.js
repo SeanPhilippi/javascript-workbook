@@ -7,6 +7,8 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+
+
 class Checker {
   constructor(color) {
     if (color === 'white') {
@@ -18,14 +20,15 @@ class Checker {
 
 }
 
-
+let whiteChecker = new Checker('white');
+let blackChecker = new Checker('black');
 
 class Board {
   constructor() {
     this.checkers = [];
-    console.log('checkers: ', this.checkers)
+    // console.log('checkers: ', this.checkers)
     this.grid = [];
-    console.log('grid: ', this.grid)
+    // console.log('grid: ', this.grid)
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -62,6 +65,8 @@ class Board {
       string += "\n";
     }
     console.log(string);
+    console.log('grid: ', this.grid)
+    console.log('checkers: ', this.checkers)
   }
 
   // Your code here
@@ -89,7 +94,7 @@ class Board {
       let whiteColumn = whitePosition[i][1];
       // new Checker class created with 'white' put in for color value
       // this is to tell Checker function what symbol to push to board
-      let whiteChecker = new Checker('white');
+
       this.checkers.push(whiteChecker);
       // console.log(whiteRow);
       this.grid[whiteRow][whiteColumn] = whiteChecker;
@@ -112,7 +117,8 @@ class Board {
     for (let i = 0; i < 12; i++) {
       let blackRow = blackPosition[i][0];
       let blackColumn = blackPosition[i][1];
-      let blackChecker = new Checker('black');
+
+      // do I even need this or the checkers array?
       this.checkers.push(blackChecker);
       // console.log(blackRow);
       this.grid[blackRow][blackColumn] = blackChecker;
@@ -135,17 +141,18 @@ class Game {
   moveChecker(whichPiece, toWhere) {
     // .map calls Number() on each element in the array created by .split()
     let whichCoords = whichPiece.split('').map(Number);
-    console.log('whichCoords: ', whichCoords);
+    // console.log('whichCoords: ', whichCoords);
     let toCoords = toWhere.split('').map(Number);
-    console.log('toCoords: ', toCoords);
-    console.log('whichCoords row: ', game.board.grid[whichCoords[0]]);
-    console.log('whichCoords column: ', game.board.grid[whichCoords[1]]);
-    console.log('toCoords row: ', toCoords[0]);
-    console.log('toCoords row: ', toCoords[1]);
-    game.board.grid[whichCoords[0]] = toCoords[0];
-    game.board.grid[whichCoords[1]] = toCoords[1];
-    // new Checker('white');
-    // whichCoords[0] =
+    // console.log('toCoords: ', toCoords);
+    // console.log('whichCoords row: ', game.board.grid[whichCoords[0]]);
+    // console.log('whichCoords column: ', game.board.grid[whichCoords[1]]);
+    // console.log('toCoords row: ', toCoords[0]);
+    // console.log('toCoords row: ', toCoords[1]);
+    // console.log('checkers: ', game.board.checkers);
+    // console.log('grid: ', game.board.grid);
+
+    this.board.grid[whichCoords[0]][whichCoords[1]] = null;
+    this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
 
   }
   isLegal() {
