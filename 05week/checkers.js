@@ -65,8 +65,8 @@ class Board {
       string += "\n";
     }
     console.log(string);
-    console.log('grid: ', this.grid)
-    console.log('checkers: ', this.checkers)
+    // console.log('grid: ', this.grid)
+    // console.log('checkers: ', this.checkers)
   }
 
   // Your code here
@@ -96,7 +96,6 @@ class Board {
       // this is to tell Checker function what symbol to push to board
 
       this.checkers.push(whiteChecker);
-      // console.log(whiteRow);
       this.grid[whiteRow][whiteColumn] = whiteChecker;
 
     }
@@ -120,12 +119,7 @@ class Board {
 
       // do I even need this or the checkers array?
       this.checkers.push(blackChecker);
-      // console.log(blackRow);
       this.grid[blackRow][blackColumn] = blackChecker;
-      // console.log(this.grid[blackRow][blackColumn] = blackChecker);
-      // console.log('checkers: ', this.checkers);
-      // console.log('blackChecker: ', blackChecker);
-      // console.log('grid: ', this.grid);
     }
   }
 }
@@ -141,22 +135,24 @@ class Game {
   moveChecker(whichPiece, toWhere) {
     // .map calls Number() on each element in the array created by .split()
     let whichCoords = whichPiece.split('').map(Number);
-    // console.log('whichCoords: ', whichCoords);
+    console.log('whichCoords: ', whichCoords);
     let toCoords = toWhere.split('').map(Number);
-    // console.log('toCoords: ', toCoords);
-    // console.log('whichCoords row: ', game.board.grid[whichCoords[0]]);
-    // console.log('whichCoords column: ', game.board.grid[whichCoords[1]]);
-    // console.log('toCoords row: ', toCoords[0]);
-    // console.log('toCoords row: ', toCoords[1]);
-    // console.log('checkers: ', game.board.checkers);
-    // console.log('grid: ', game.board.grid);
-
-    this.board.grid[whichCoords[0]][whichCoords[1]] = null;
-    this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
-
-  }
-  isLegal() {
-
+    if(whichCoords[0] <= 7 && whichCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
+      if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
+      this.board.grid[whichCoords[0]][whichCoords[1]]) {
+        if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11
+        || Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
+          this.board.grid[whichCoords[0]][whichCoords[1]] = null;
+          this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
+        } else {
+          console.log('Not a legal move');
+        }
+      } else {
+        console.log('That space is not available!');
+      }
+    } else {
+      console.log('please enter valid coordinates as a 2-digit number!');
+    }
   }
 }
 

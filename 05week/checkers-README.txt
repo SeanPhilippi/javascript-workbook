@@ -13,8 +13,12 @@ getPrompt()
 switchPlayer()
   switch player after each successful execution of moveChecker()
 
-isValid()
-  can't move to white spaces, throw something like a -1 in those spots
+isLegal()
+  if toWhere && whichPiece === legalSpaces && toWhere is falsey (null), &&
+  toWhere must = whichPiece +9 or whichPiece +11
+  else if space is falsey (!null), toWhere must === legalSpaces && toWhere === whichPiece + 18 or + 22
+
+  can't move to blank spaces
   can't move in an occupied space
   can't move off board, so no coordinates containing an 8 or 9
 
