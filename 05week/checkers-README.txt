@@ -14,15 +14,12 @@ switchPlayer()
   switch player after each successful execution of moveChecker()
 
 isLegal()
-  if toWhere && whichPiece === legalSpaces && toWhere is falsey (null), &&
-  toWhere must = whichPiece +9 or whichPiece +11
-  else if space is falsey (!null), toWhere must === legalSpaces && toWhere === whichPiece + 18 or + 22
-
-  if +\-9 or +\-11 === truthy (occupied), allow +/-18 or +/-22
-
   can't move to blank spaces
   can't move in an occupied space
+  whichPiece must be truthy (has a checker)
   can't move off board, so no coordinates containing an 8 or 9
+
+
 
 moveChecker()
   black pieces can only move south and diagonally, so +9 or +11 for coordinates

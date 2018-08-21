@@ -13,15 +13,21 @@ class Checker {
   constructor(color) {
     if (color === 'white') {
       this.symbol = 'W';
+      this.name = 'Black';
     } else {
       this.symbol = 'B';
+      this.name = 'White';
     }
   }
-
 }
 
 let whiteChecker = new Checker('white');
 let blackChecker = new Checker('black');
+
+let playerTurn = whiteChecker;
+
+let whtCaptureCount = 0;
+let blkCaptureCount = 0;
 
 class Board {
   constructor() {
@@ -125,37 +131,114 @@ class Board {
 }
 
 class Game {
-  constructor() {
+  constructor(whichPiece, toWhere) {
     this.board = new Board;
+    this.whichPiece = whichPiece;
+    this.toWhere = toWhere;
   }
   start() {
     this.board.createGrid();
     this.board.setBoard();
   }
-  moveChecker(whichPiece, toWhere) {
+  moveChecker (whichPiece, toWhere) {
     // .map calls Number() on each element in the array created by .split()
     let whichCoords = whichPiece.split('').map(Number);
-    console.log('whichCoords: ', whichCoords);
     let toCoords = toWhere.split('').map(Number);
+
     if(whichCoords[0] <= 7 && whichCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
+      // if toWhere is empty and whichPiece is true(not empty)
       if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
       this.board.grid[whichCoords[0]][whichCoords[1]]) {
-        if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11
-        || Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
-          this.board.grid[whichCoords[0]][whichCoords[1]] = null;
-          this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
-          // allow capture if +/-18 or +/-22 is null and +/-9 or +/-11 is truthy (!null)
+        movePiece();
+      } else {
+        console.log('Not a legal move!');
+      }
+    } else {
+      console.log('Please enter valid coordinates as a 2-digit number!');
+    }
+
+    function whiteRules() {
+      if (playerTurn === whiteChecker) {
+        // if toWhere is whichPiece +9 or +11
+        if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11) {
+          return true;
         } else {
           console.log('Not a legal move');
         }
-      } else {
-        console.log('That space is not available!');
       }
-    } else {
-      console.log('please enter valid coordinates as a 2-digit number!');
     }
+
+    function blackRules() {
+      if (playerTurn === blackChecker) {
+        // if toWhere is whichPiece -9 or - 11
+        if (Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
+          return true;
+        } else {
+          console.log('Not a legal move');
+        }
+      }
+    }
+
+    function whiteJumpRules() {
+      if (playerTurn === whiteChecker) {
+        // if toWhere is whichPiece +9 or +11
+        if ((Number(toWhere) === Number(whichPiece) + 18 && Number(whichPiece) + 9 === blackChecker)
+        || Number(toWhere) === Number(whichPiece) + 22 && Number(whichPiece) + 11 === blackChecker) {
+          return true;
+        } else {
+          console.log('Not a legal move');
+        }
+      }
+    }
+
+    function blackJumpRules() {
+
+    }
+
+    function movePiece() {
+      // clear whichPiece space
+      if (whiteRules() || blackRules()) {
+        game.board.grid[whichCoords[0]][whichCoords[1]] = null;
+        // assign correct piece to toWhere space
+        game.board.grid[toCoords[0]][toCoords[1]] = playerTurn;
+        switchPlayer();
+      }
+    }
+
+    function switchPlayer() {
+      if (playerTurn === whiteChecker) {
+        playerTurn = blackChecker;
+      } else {
+        playerTurn = whiteChecker;
+      }
+    }
+
+
+    console.log(playerTurn.name + "'s turn'");
   }
 }
+  //   if(whichCoords[0] <= 7 && whichCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
+  //     // if toWhere is empty and whichPiece is true(not empty)
+  //     if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
+  //     this.board.grid[whichCoords[0]][whichCoords[1]]) {
+  //       // if toWhere is whichPiece +/-9 or +/- 11
+  //       if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11
+  //       || Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
+  //         this.board.grid[whichCoords[0]][whichCoords[1]] = null;
+  //         this.board.grid[toCoords[0]][toCoords[1]] = whiteChecker;
+  //         // allow capture if +/-18 or +/-22 is null and +/-9 or +/-11 is truthy (!null)
+  //       } else if (toWhere ) {
+  //
+  //       } else {
+  //         console.log('Not a legal move');
+  //       }
+  //     } else {
+  //       console.log('That space is not available!');
+  //     }
+  //   } else {
+  //     console.log('please enter valid coordinates as a 2-digit number!');
+  //   }
+  // }
 
 const getPrompt = () => {
   game.board.viewGrid();
