@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const test = [1,2,3,4];
+const test = [1,2,3];
 
 // Create a forEach() function that takes an array of items and a function
 // that runs the function arr.length number of times.
@@ -64,21 +64,25 @@ filter(test, filterCallback);
 // Create a some() function that takes an array of items and a function that
 // returns true or false if any of the items return true in the function.
 
-
 let count = 0;
 
 function someCallback(item) {
   if (item % 2 === 0) {
-    return true;
+    count++
+    if (count > 0) {
+      return true;
+    }
   }
 }
 
 function some(arr, callback) {
   for (let i = 0; i < arr.length; i++) {
     callback(arr[i]);
-    if (callback()) {
-      return true;
     }
+    if (count > 0) {
+      return true;
+    } else {
+      return false;
   }
 }
 
@@ -91,13 +95,15 @@ console.log(somed);
 function everyCallback(item) {
   if (item % 2 === 0) {
     return true;
+  } else {
+    return false;
   }
 }
 
 function every(arr, callback) {
   for (let i = 0; i < arr.length; i++) {
     callback(arr[i]);
-    if (callback()) {
+    if (callback(arr[i])) {
       return true;
     } else {
       return false;
