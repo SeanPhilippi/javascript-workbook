@@ -12,21 +12,31 @@ getPrompt()
 
 switchPlayer()
   switch player after each successful execution of moveChecker()
+  variable playerTurn assigned to 'whiteChecker' or 'blackChecker'
 
-isLegal()
+moveChecker() (legality function, named this to comply with tests)
   can't move to blank spaces
   can't move in an occupied space
   whichPiece must be truthy (has a checker)
   can't move off board, so no coordinates containing an 8 or 9
+  shove all rule methods and movePiece() in here
 
 
+movePiece()
+  assign whichPiece to null and toWhere to whiteChecker or blackChecker
+  color is determined by playerTurn assignment at the time movePiece is called
 
-moveChecker()
-  black pieces can only move south and diagonally, so +9 or +11 for coordinates
+whiteRules()
   white pieces can only move north and diagonally, so -9 or -11 for coordinates
-  detect which of the 2 possible spaces/coordinates are empty, return to user options
-  prompt for user input, must be equal to one of the provided coordinates to be valid
-  move piece
+  else if pieces are -18 or -22, check to see if -9 or -11 is occupied by a blackChecker, if so, equate these coordinates
+  in the array to null and/or delete from checkers array?  
+  else return 'not a legal move!'
+
+
+blackRules()
+  black pieces can only move south and diagonally, so +9 or +11 for coordinates
+
+
 
   if no empty coordinates, check valid coordinates (number without 8 or 9) +22 and +18 for black, -22 and -18 for white.
   if +/-9 coordinate is occupied by rival color (capturePieceLegal()?) && +/-18 is available
