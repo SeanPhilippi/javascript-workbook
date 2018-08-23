@@ -2,25 +2,113 @@
 
 const assert = require('assert');
 
+const test = [1,2,3,4];
+
+// Create a forEach() function that takes an array of items and a function
+// that runs the function arr.length number of times.
+
 function forEach(arr, callback) {
-  // Your code here
+  for(let i = 0; i < arr.length; i++){
+    if (typeof callback === 'function') {
+      callback(arr[i]);
+    }
+  }
+}
+
+const forEachCallback = () => {
+  return 'forEach: callback is a function';
+}
+
+forEach(test, forEachCallback);
+
+
+// Create a map() function that takes an array of items and a function that
+// returns an array with each item manipulated by that function.
+
+const mapped = [];
+
+function mapCallback(num) {
+  let x = num * num;
+  mapped.push(x);
 }
 
 function map(arr, callback) {
-  // Your code here
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i]);
+  }
+  return mapped;
+}
+
+map(test, mapCallback);
+
+// Create a filter() function that takes an array of items and a function that
+// returns an array with only the items that return true in the function.
+
+const filtered = [];
+
+function filterCallback(item) {
+  if (item % 2 === 0) {
+    filtered.push(item);
+  }
 }
 
 function filter(arr, callback) {
-  // Your code here
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i])
+  }
+  return filtered;
+}
+
+filter(test, filterCallback);
+
+// Create a some() function that takes an array of items and a function that
+// returns true or false if any of the items return true in the function.
+
+
+let count = 0;
+
+function someCallback(item) {
+  if (item % 2 === 0) {
+    return true;
+  }
 }
 
 function some(arr, callback) {
-  // Your code here
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i]);
+    if (callback()) {
+      return true;
+    }
+  }
+}
+
+const somed = some(test, someCallback);
+console.log(somed);
+
+// Create an every() function that takes an array of items and a function that
+// returns true or false if all of the items return true in the function.
+
+function everyCallback(item) {
+  if (item % 2 === 0) {
+    return true;
+  }
 }
 
 function every(arr, callback) {
-  // Your code here
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i]);
+    if (callback()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+
+const everied = every(test, everyCallback);
+console.log(everied);
+
+// tests
 
 if (typeof describe === 'function') {
 
