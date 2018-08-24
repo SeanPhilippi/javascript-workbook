@@ -26,10 +26,31 @@ movePiece()
   assign whichPiece to null and toWhere to whiteChecker or blackChecker
   color is determined by playerTurn assignment at the time movePiece is called
 
+moveDirection()
+  get coordinates from whichPiece and whereTo inputs
+  assign coordinates to variables fromCoords and toCoords
+  use switch statement for result of toCoords - from Coords to assign to up-right, up-left, down-right, and down-left variables
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 whiteRules()
   white pieces can only move north and diagonally, so -9 or -11 for coordinates
   else if pieces are -18 or -22, check to see if -9 or -11 is occupied by a blackChecker, if so, equate these coordinates
-  in the array to null and/or delete from checkers array?  
+  in the array to null and/or delete from checkers array?
   else return 'not a legal move!'
 
 

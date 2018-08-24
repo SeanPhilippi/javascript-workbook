@@ -21,10 +21,10 @@ class Checker {
   }
 }
 
-let whiteChecker = new Checker('white');
-let blackChecker = new Checker('black');
+const whiteChecker = new Checker('white');
+const blackChecker = new Checker('black');
 
-let playerTurn = whiteChecker;
+let playerTurn = blackChecker;
 
 let whtCaptureCount = 0;
 let blkCaptureCount = 0;
@@ -138,15 +138,18 @@ class Game {
     this.board.createGrid();
     this.board.setBoard();
   }
+
   moveChecker (whichPiece, toWhere) {
     // .map calls Number() on each element in the array created by .split()
-    let whichCoords = whichPiece.split('').map(Number);
-    let toCoords = toWhere.split('').map(Number);
+    const fromCoords = whichPiece.split('').map(Number);
+    const toCoords = toWhere.split('').map(Number);
+    const moveDir = moveDirection();
 
-    if(whichCoords[0] <= 7 && whichCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
-      // if toWhere is empty and whichPiece is true(not empty)
+    // first legal filter, must have legal coordinates
+    if(fromCoords[0] <= 7 && fromCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
+      // toWhere must be empty and whichPiece must be true(not empty)
       if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
-      this.board.grid[whichCoords[0]][whichCoords[1]]) {
+      this.board.grid[fromCoords[0]][fromCoords[1]]) {
         movePiece();
       } else {
         console.log('Not a legal move!');
@@ -154,6 +157,21 @@ class Game {
     } else {
       console.log('Please enter valid coordinates as a 2-digit number!');
     }
+
+    function moveDirection() {
+      switch (Number(toWhere) - Number(whichPiece)) {
+        case 9:
+        case 18: return 'down-left';
+        case 11:
+        case 22: return 'down-right';
+        case -9:
+        case -18: return 'up-right';
+        case -11:
+        case -22: return 'up-left';
+      }
+    }
+
+    console.log(moveDir);
 
     function whiteRules() {
       if (playerTurn === whiteChecker) {
@@ -163,7 +181,6 @@ class Game {
         } else if (Number(toWhere) === Number(whichPiece) + 18) {
         // something here
         } else {
-          console.log('this: ', this);
           console.log('White: Not a legal move');
         }
       }
@@ -199,7 +216,7 @@ class Game {
     function movePiece() {
       // clear whichPiece space
       if (whiteRules() || blackRules()) {
-        game.board.grid[whichCoords[0]][whichCoords[1]] = null;
+        game.board.grid[fromCoords[0]][fromCoords[1]] = null;
         // assign correct piece to toWhere space
         game.board.grid[toCoords[0]][toCoords[1]] = playerTurn;
         switchPlayer();
