@@ -31,10 +31,10 @@ let blkCaptureCount = 0;
 
 class Board {
   constructor() {
+    // array of checker objects pushed to board
     this.checkers = [];
-    // console.log('checkers: ', this.checkers)
+    // array of row arrays containing all objects and null values on board
     this.grid = [];
-    // console.log('grid: ', this.grid)
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -121,7 +121,6 @@ class Board {
       let blackRow = blackPosition[i][0];
       let blackColumn = blackPosition[i][1];
 
-      // do I even need this or the checkers array?
       this.checkers.push(blackChecker);
       this.grid[blackRow][blackColumn] = blackChecker;
     }
@@ -137,6 +136,7 @@ class Game {
   start() {
     this.board.createGrid();
     this.board.setBoard();
+    console.log(playerTurn.name + "'s turn");
   }
 
   moveChecker (whichPiece, toWhere) {
@@ -144,13 +144,19 @@ class Game {
     const fromCoords = whichPiece.split('').map(Number);
     const toCoords = toWhere.split('').map(Number);
     const moveDir = moveDirection();
+    let jumpedCoords;
+    let jumpedPiece;
 
     // first legal filter, must have legal coordinates
     if(fromCoords[0] <= 7 && fromCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
       // toWhere must be empty and whichPiece must be true(not empty)
       if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
       this.board.grid[fromCoords[0]][fromCoords[1]]) {
-        movePiece();
+        if (playerTurn === whiteChecker) {
+          whiteRules();
+        } else if (playerTurn === blackChecker){
+          blackRules();
+        }
       } else {
         console.log('Not a legal move!');
       }
@@ -160,67 +166,94 @@ class Game {
 
     function moveDirection() {
       switch (Number(toWhere) - Number(whichPiece)) {
-        case 9:
         case 18: return 'down-left';
-        case 11:
         case 22: return 'down-right';
-        case -9:
         case -18: return 'up-right';
-        case -11:
         case -22: return 'up-left';
       }
     }
 
-    console.log(moveDir);
-
     function whiteRules() {
-      if (playerTurn === whiteChecker) {
-        // if toWhere is whichPiece +9 or +11
-        if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11) {
-          return true;
-        } else if (Number(toWhere) === Number(whichPiece) + 18) {
-        // something here
-        } else {
-          console.log('White: Not a legal move');
-        }
+      // if toWhere is whichPiece +9 or +11
+      if (Number(toWhere) === Number(whichPiece) + 9 || Number(toWhere) === Number(whichPiece) + 11) {
+        movePiece();
+      } else if (Number(toWhere) === Number(whichPiece) + 18 || Number(toWhere) === Number(whichPiece) + 22) {
+        whiteJumpRules();
+      } else {
+        console.log('Not a legal move!');
       }
     }
 
     function blackRules() {
-      if (playerTurn === blackChecker) {
-        // if toWhere is whichPiece -9 or - 11
-        if (Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
-          return true;
+      // if toWhere is whichPiece -9 or - 11
+      if (Number(toWhere) === Number(whichPiece) - 9 || Number(toWhere) === Number(whichPiece) - 11) {
+        movePiece();
+      } else if (Number(toWhere) === Number(whichPiece) - 18 || Number(toWhere) === Number(whichPiece) - 22) {
+        blackJumpRules();
+      } else {
+        console.log('Not a legal move!');
+      }
+    }
+
+    function whiteJumpRules() {
+      if (moveDir === 'down-right') {
+        jumpedCoords = (Number(whichPiece) + 11).toString().split('').map(Number);
+        jumpedPiece = game.board.grid[jumpedCoords[0]][jumpedCoords[1]];
+        if (jumpedPiece) {
+          game.board.grid[jumpedCoords[0]][jumpedCoords[1]] = null;
+          game.board.checkers.pop();
+          whtCaptureCount++;
+          movePiece();
         } else {
-          console.log('Black: Not a legal move');
+          console.log('Not a legal move!');
+        }
+      } else if (moveDir === 'down-left') {
+        // array containing coordinates of jumped checker
+        jumpedCoords = (Number(whichPiece) + 9).toString().split('').map(Number);
+        // value of checker at jumped coordinates in grid
+        jumpedPiece = game.board.grid[jumpedCoords[0]][jumpedCoords[1]];
+        if (jumpedPiece) {
+          game.board.grid[jumpedCoords[0]][jumpedCoords[1]] = null;
+          game.board.checkers.pop();
+          whtCaptureCount++;
+          movePiece();
         }
       }
     }
 
-    // function whiteJumpRules() {
-    //   if (playerTurn === whiteChecker) {
-    //     // if toWhere is whichPiece +9 or +11
-    //     if ((Number(toWhere) === Number(whichPiece) + 18)) {
-    //       // return true;
-    //       console.log('success')
-    //     } else {
-    //       console.log('Not a legal move');
-    //     }
-    //   }
-    // }
-    //
-    // function blackJumpRules() {
-    //
-    // }
-    //
+    function blackJumpRules() {
+      if (moveDir === 'up-right') {
+        jumpedCoords = (Number(whichPiece) - 9).toString().split('').map(Number);
+        jumpedPiece = game.board.grid[jumpedCoords[0]][jumpedCoords[1]];
+        if (jumpedPiece) {
+          game.board.grid[jumpedCoords[0]][jumpedCoords[1]] = null;
+          game.board.checkers.pop();
+          blkCaptureCount++;
+          movePiece();
+        } else {
+          console.log('Not a legal move!');
+        }
+      } else if (moveDir === 'up-left') {
+        jumpedCoords = (Number(whichPiece) - 11).toString().split('').map(Number);
+        jumpedPiece = game.board.grid[jumpedCoords[0]][jumpedCoords[1]];
+        if (jumpedPiece) {
+          game.board.grid[jumpedCoords[0]][jumpedCoords[1]] = null;
+          game.board.checkers.pop();
+          blkCaptureCount++;
+          movePiece();
+        } else {
+          console.log('Not a legal move!');
+        }
+      }
+    }
+
     function movePiece() {
       // clear whichPiece space
-      if (whiteRules() || blackRules()) {
-        game.board.grid[fromCoords[0]][fromCoords[1]] = null;
-        // assign correct piece to toWhere space
-        game.board.grid[toCoords[0]][toCoords[1]] = playerTurn;
-        switchPlayer();
-      }
+      game.board.grid[fromCoords[0]][fromCoords[1]] = null;
+      // assign correct piece to toWhere space
+      game.board.grid[toCoords[0]][toCoords[1]] = playerTurn;
+      checkForWin();
+      switchPlayer();
     }
 
     function switchPlayer() {
@@ -230,6 +263,16 @@ class Game {
         playerTurn = whiteChecker;
       }
       console.log(playerTurn.name + "'s turn");
+    }
+
+    function checkForWin() {
+      if (whtCaptureCount === 12) {
+        console.log('White wins!');
+        process.exit();
+      } else if (blkCaptureCount === 12) {
+        console.log('Black wins!');
+        process.exit();
+      }
     }
   }
 }
