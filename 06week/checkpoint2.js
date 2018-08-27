@@ -18,7 +18,9 @@ const sumEvens = strNums.reduce((a, b)=>{
 console.log(sumEvens);
 
 // Find the index of the first "Austin" value (the value plus its index equals 512)
-const atxIdx;
+const atxIdx = (x) => {
+  return x.indexOf('Austin');
+}
 
 console.log(`index: ${atxIdx}, value: ${nums[atxIdx]}`);
 
@@ -89,8 +91,12 @@ const weather = [
   },
 ],
 
-//using a higher order function, create an array of the unique 'weather_state_name' values of the weather array. Your function should return the following array ['Light Cloud', 'Heavy Cloud', 'Showers']
-const weatherStates =
+//using a higher order function, create an array of the unique 'weather_state_name' values of the weather array.
+//Your function should return the following array ['Light Cloud', 'Heavy Cloud', 'Showers']
+
+const weatherStates = weather.map((arr)=>{
+  return arr['weather_state_name'];
+})
 console.log(weatherStates)
 
 //find the id of the object in weather that has a min_temp of 15.915
