@@ -3,7 +3,7 @@
 const assert = require('assert');
 const readline = require('readline');
 const rl = readline.createInterface({
-  input: process.stdin,
+  input: process.stdin
   output: process.stdout
 });
 
@@ -126,6 +126,8 @@ class Board {
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////
 
 class Game {
   constructor() {
@@ -255,11 +257,10 @@ class Game {
     }
 
     function switchPlayer() {
-      if (playerTurn === whiteChecker) {
-        playerTurn = blackChecker;
-      } else {
-        playerTurn = whiteChecker;
-      }
+      // if playterTurn is whiteChecker, switch to blackChecker, else whiteChecker
+      playerTurn = playerTurn === whiteChecker ?
+        blackChecker :
+        whiteChecker;
       console.log(playerTurn.name + "'s turn");
     }
 

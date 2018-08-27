@@ -30,22 +30,6 @@ moveDirection()
   get coordinates from whichPiece and whereTo inputs
   assign coordinates to variables fromCoords and toCoords
   use switch statement for result of toCoords - from Coords to assign to up-right, up-left, down-right, and down-left variables
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 whiteRules()
   white pieces can only move north and diagonally, so -9 or -11 for coordinates
@@ -56,8 +40,6 @@ whiteRules()
 
 blackRules()
   black pieces can only move south and diagonally, so +9 or +11 for coordinates
-
-
 
   if no empty coordinates, check valid coordinates (number without 8 or 9) +22 and +18 for black, -22 and -18 for white.
   if +/-9 coordinate is occupied by rival color (capturePieceLegal()?) && +/-18 is available
@@ -78,7 +60,4 @@ checkForWin()
     return 'Black wins!'
 
 resetGame()
-  set board back to
-1 - 169
-
-9 or 11 is always the difference depending on the direction
+  assign board coordinates to null, then call setBoard()
