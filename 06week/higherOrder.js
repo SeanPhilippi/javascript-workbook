@@ -64,51 +64,39 @@ filter(test, filterCallback);
 // Create a some() function that takes an array of items and a function that
 // returns true or false if any of the items return true in the function.
 
-let count = 0;
-
 function someCallback(item) {
   if (item % 2 === 0) {
-    count++
-    if (count > 0) {
-      return true;
-    }
+    return true;
   }
 }
 
 function some(arr, callback) {
   for (let i = 0; i < arr.length; i++) {
-    callback(arr[i]);
-    }
-    if (count > 0) {
+    if(callback(arr[i])) {
       return true;
-    } else {
-      return false;
+    }
   }
+  return false;
 }
 
 const somed = some(test, someCallback);
-console.log(somed);
+console.log('some:', somed);
 
 // Create an every() function that takes an array of items and a function that
 // returns true or false if all of the items return true in the function.
 
 function everyCallback(item) {
   if (item % 2 === 0) {
-    return true;
-  } else {
-    return false;
+
   }
 }
 
 function every(arr, callback) {
   for (let i = 0; i < arr.length; i++) {
-    callback(arr[i]);
-    if (callback(arr[i])) {
-      return true;
-    } else {
+    if (!callback(arr[i])) {
       return false;
     }
-  }
+  } return true;
 }
 
 const everied = every(test, everyCallback);
