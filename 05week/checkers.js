@@ -94,8 +94,8 @@ class Board {
     // looping through whitePosition to grab row and column coordinates
     // and assign them to whiteRow and whiteColumn variables
     for (let i = 0; i < 12; i++) {
-      let whiteRow = whitePosition[i][0];
-      let whiteColumn = whitePosition[i][1];
+      const whiteRow = whitePosition[i][0];
+      const whiteColumn = whitePosition[i][1];
       // new Checker class created with 'white' put in for color value
       // this is to tell Checker function what symbol to push to board
 
@@ -118,8 +118,8 @@ class Board {
       [7, 6]
     ]
     for (let i = 0; i < 12; i++) {
-      let blackRow = blackPosition[i][0];
-      let blackColumn = blackPosition[i][1];
+      const blackRow = blackPosition[i][0];
+      const blackColumn = blackPosition[i][1];
 
       this.checkers.push(blackChecker);
       this.grid[blackRow][blackColumn] = blackChecker;
