@@ -25,41 +25,42 @@ forEach(test, forEachCallback);
 // Create a map() function that takes an array of items and a function that
 // returns an array with each item manipulated by that function.
 
-const mapped = [];
-
 function mapCallback(num) {
-  let x = num * num;
-  mapped.push(x);
+  return num * num;
 }
 
 function map(arr, callback) {
+  const newArr = [];
   for (let i = 0; i < arr.length; i++) {
-    callback(arr[i]);
+    newArr.push(
+      callback(arr[i]);
+    )
   }
-  return mapped;
+  return newArr;
 }
 
-map(test, mapCallback);
+const mapped = map(test, mapCallback);
+console.log(mapped)
 
 // Create a filter() function that takes an array of items and a function that
 // returns an array with only the items that return true in the function.
 
-const filtered = [];
-
 function filterCallback(item) {
-  if (item % 2 === 0) {
-    filtered.push(item);
-  }
+  return item % 2 === 0
 }
 
 function filter(arr, callback) {
+  const newArr = [];
   for (let i = 0; i < arr.length; i++) {
-    callback(arr[i])
+    if (callback(arr[i])) {
+      newArr.push(arr[i]);
+    }
   }
-  return filtered;
+  return newArr;
 }
 
-filter(test, filterCallback);
+const filtered = filter(test, filterCallback);
+console.log(filtered);
 
 // Create a some() function that takes an array of items and a function that
 // returns true or false if any of the items return true in the function.
