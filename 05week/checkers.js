@@ -3,7 +3,7 @@
 const assert = require('assert');
 const readline = require('readline');
 const rl = readline.createInterface({
-  input: process.stdin
+  input: process.stdin,
   output: process.stdout
 });
 
@@ -48,14 +48,16 @@ class Board {
     }
   }
   viewGrid() {
-    // add our column numbers
+    // add our display column numbers
     let string = "  0 1 2 3 4 5 6 7\n";
     for (let row = 0; row < 8; row++) {
       // we start with our row number in our array
       const rowOfCheckers = [row];
-      // a loop within a loop
+      // loop though colums for each row index
       for (let column = 0; column < 8; column++) {
         // if the location is "truthy" (contains a checker piece, in this case)
+        // accessing the piece at row (row array index within grid which is array of arrays), 
+        // then looking at the column index for that row array to see if piece exists
         if (this.grid[row][column]) {
           // push the symbol of the checker at [row, column] coordinates
           // in grid array onto that position in the rowofCheckers array
@@ -94,11 +96,13 @@ class Board {
     // looping through whitePosition to grab row and column coordinates
     // and assign them to whiteRow and whiteColumn variables
     for (let i = 0; i < 12; i++) {
+      // grab first number in array and store as whiteRow
       const whiteRow = whitePosition[i][0];
+      // grab 2nd number in array and store as whiteColumn
       const whiteColumn = whitePosition[i][1];
+
       // new Checker class created with 'white' put in for color value
       // this is to tell Checker function what symbol to push to board
-
       this.checkers.push(whiteChecker);
       this.grid[whiteRow][whiteColumn] = whiteChecker;
 
