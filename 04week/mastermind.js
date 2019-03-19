@@ -8,8 +8,8 @@ const rl = readline.createInterface({
 });
 
 let board = [];
-let solution = '';
-const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+let solution = 'abcd';
+let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 function printBoard() {
   for (let i = 0; i < board.length; i++) {
@@ -28,61 +28,31 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateHint(guess) {
-  // your code here
-  const guessArr = guess.split('');
-  let correctLetter = 0;
-  let correctPosition = 0;
-  guessArr.forEach((letter, index) => {
-    console.log(letter, solution.indexOf(letter), index, 'check');
-    if(solution.indexOf(letter) !== -1) {
-      correctLetter++;
-      if(solution[index] === letter) {
-        correctPosition++;
-      }
+function generateHint(solution, guess) {
+  const solutionArray = solution.split('');
+  const guessArray = guess.split('');
+  let correctLocations = 0;
+  for (let i = 0; i < solutionArray.length; i++) {
+    if (guessArray[i] === solutionArray[i]) {
+      correctLocations++;
+      solutionArray[i] = null;
     }
-  })
-  return `${correctLetter} are correct, ${correctPosition} are in the right place.`
-  console.log(correctLetter, correctPosition, guess, 'hint');
-}
+  }
 
-const acceptableGuess = (guess) => {
-    if(guess.length === 4) {
-      let allLettersAreLegal = true;
-      const guessArr = guess.split('');
-
-      console.log(letters);
-      guessArr.forEach((letter) => {
-        if(letters.indexOf(letter) === -1){
-          allLettersAreLegal = false;
-        }
-      })
-      return allLettersAreLegal;
+  let correctLetters = 0;
+  for (let i = 0; i < solutionArray.length; i++) {
+    if (solutionArray.indexOf() > 0) {
+      correctLetters++;
+      solutionArray[i] = null;
     }
+  }
 }
 
 function mastermind(guess) {
-  solution = 'abcd'; // Comment this out to generate a random solution
-  // your code here
-
-  if (acceptableGuess(guess)) {
-    if(guess === solution){
-      board = [];
-      return 'You guessed it!';
-    } else {
-      // return my hint function
-      return generateHint(guess);
-      board.push(guess);
-      console.log(board);
-      if (board.length > 9) {
-        // console.log('out of turns');
-        baord = [];
-        return 'You Lose';
-      }
-    }
-  } else {
-    return 'Please enter valid guess';
+  if (guess === solution) {
+    return 'You guessed it!';
   }
+
 }
 
 
