@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 });
 
 let board = [];
-let solution = '';
+let solution = 'abcd';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 function printBoard() {
@@ -39,18 +39,20 @@ function generateHint(solution, guess) {
   const solutionArray = solution.split('');
   const guessArray = guess.split('');
   let correctLocations = 0;
+  let correctLetters = 0;
+
   for (let i = 0; i < solutionArray.length; i++) {
     if (guessArray[i] === solutionArray[i]) {
       correctLocations++;
       solutionArray[i] = null;
+      console.log('solArr after location loop', solutionArray);
     }
-  }
 
-  let correctLetters = 0;
-  for (let i = 0; i < solutionArray.length; i++) {
-    if (solutionArray.indexOf(guessArray[i]) > -1) {
-      correctLetters++;
-      solutionArray[i] = null;
+    let targetIndex = solutionArray.indexOf(guessArray[i]);
+    if (targetIndex > -1) {
+      correctLetters++
+      solutionArray[targetIndex] = null;
+      console.log('solArr after letters loop', solutionArray)
     }
   }
   // return colors.red(correctLetters) + ' correct letters, ' + colors.white.underline(correctLocations) + ' correct locations.';
@@ -59,7 +61,8 @@ function generateHint(solution, guess) {
 
 function mastermind(guess) {
   // getting solution from global solution variable
-  if (guess === solution) {
+  if (guess == solution) {
+    console.log('You guessed it!')
     return 'You guessed it!';
   } else {
     let hint = generateHint(solution, guess);
@@ -97,16 +100,16 @@ if (typeof describe === 'function') {
 
   describe('#generateHint()', () => {
     it('should generate hints', () => {
-      assert.equal(generateHint('abdc'), '2-2');
+      assert.equal(generateHint('abcd', 'abdc'), '2-2');
     });
     it('should generate hints if solution has duplicates', () => {
-      assert.equal(generateHint('aabb'), '1-1');
+      assert.equal(generateHint('abcd', 'aabb'), '1-1');
     });
 
   });
 
 } else {
 
-  generateSolution();
+  // generateSolution();
   getPrompt();
 }
