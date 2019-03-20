@@ -12,25 +12,27 @@ const rl = readline.createInterface({
 let board = [];
 let solution = '';
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-let turns = 10;
+// set to 11, so when at 0, prompting will stop
+let turns = 11;
 
 // prints history of hints, each item in board array is a previous hint
 function printBoard() {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
-  if (turns > 0) {
-    console.log(`${turns} turns left`.magenta.bgBlack + '\nGuess again...'.yellow.italic)
+  if (turns > 1) {
+    console.log(`${turns - 1} turns left`.magenta.bgBlack + '\nGuess again...'.yellow.italic)
   } else {
     console.log('Last turn!!!'.red);
   }
 }
 
 // resets game/global vars
-function resetGame() {
-  board = [];
-  solution = '';
-  turns = 10;
+function exitGame() {
+  setTimeout((function() {  
+    console.log('\n');
+    return process.exit();
+  }), 3000);
 }
 
 function generateSolution() {
@@ -79,15 +81,9 @@ function mastermind(guess) {
   if (guess === solution) {
     // logging win message so player can see they won
     console.log('You guessed it!'.green);
-    resetGame();
+    exitGame();
     // return win message to pass test
     return 'You guessed it!';
-  } else if (turns === 0) {
-    console.log('You ran out of turns! The solution was '.red + `${solution}`.cyan.bgBlack);
-    setTimeout((function() {  
-      console.log('\n');
-      return process.exit();
-    }), 3000);
   } else {
     let hint = generateHint(guess);
     // let feedback = "You guessed: " + guess + "\nhint: " + hint;
@@ -99,12 +95,17 @@ function mastermind(guess) {
 
 
 function getPrompt() {
-  // node readline object's question method is called, takes a prompt string
-  // and a function for the user input
+  // node readline createInterface object's question method is called, takes 
+  // a prompt string and a function that takes the user standard input
   rl.question('guess: ', (guess) => {
     mastermind(guess);
     printBoard();
-    getPrompt();
+    if (turns !== 0) {
+      getPrompt();
+    } else {
+      console.log('You ran out of turns! The solution was '.red + `${solution}`.cyan.bgBlack);
+      exitGame();
+    }
   });
 }
 
