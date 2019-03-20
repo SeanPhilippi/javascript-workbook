@@ -50,6 +50,9 @@ function generateHint(guess) {
       correctLetterLocations++;
       solutionArray[i] = null;
     }
+  }
+
+  for (let i = 0; i < solutionArray.length; i++) {
     // keep track of index in solutionArray of extra correct letters and store in variable
     // use this variable to know what letter to null in solutionArray to avoid counting extra letters already counted
     const targetIndex = solutionArray.indexOf(guessArray[i]);
@@ -73,8 +76,6 @@ function mastermind(guess) {
     console.log(`You ran out of turns! The solution was ${solution}`);
   } else {
     let hint = generateHint(guess);
-    // let feedback = "You guessed: " + guess + "\nhint: " + hint;
-    // board.push(feedback);
     board.push(hint);
     incorrectGuesses++;
     console.log('Guess again.');
@@ -93,6 +94,7 @@ function getPrompt() {
 }
 
 // Tests
+// * to run tests: npm test 04week/mastermind.js
 
 if (typeof describe === 'function') {
   solution = 'abcd';
