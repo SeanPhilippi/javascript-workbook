@@ -64,6 +64,8 @@ function generateHint(guess) {
       correctLetterLocations++;
       solutionArray[i] = null;
     }
+  }
+  for (let i = 0; i < solutionArray.length; i++) {
     // keep track of index in solutionArray of extra correct letters and store in variable
     // use this variable to know what letter to null in solutionArray to avoid counting extra letters already counted
     const targetIndex = solutionArray.indexOf(guessArray[i]);
@@ -72,6 +74,7 @@ function generateHint(guess) {
       solutionArray[targetIndex] = null;
     }
   }
+
   return `${otherCorrectLetters}`.red + '-' + `${correctLetterLocations}`.white.underline;
   // return `${otherCorrectLetters}-${correctLetterLocations}`;
 }
@@ -80,7 +83,9 @@ function mastermind(guess) {
   // getting solution from global solution variable
   if (guess === solution) {
     // logging win message so player can see they won
-    console.log('You guessed it!'.green);
+    console.log('==========================='.green);
+    console.log('Congrats!! You guessed it!!'.green);
+    console.log('==========================='.green);
     exitGame();
     // return win message to pass test
     return 'You guessed it!';
