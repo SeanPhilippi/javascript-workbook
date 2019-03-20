@@ -10,28 +10,32 @@ const rl = readline.createInterface({
 });
 
 let board = [];
-let solution;
+let solution = '';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-function printBoard(board) {
+function printBoard() {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
 }
 
 function generateSolution() {
+  // loops 4 times to concatenate 4 random letters from letters array 
+  // into a solution string with a length of 4
   for (let i = 0; i < 4; i++) {
     const randomIndex = getRandomInt(0, letters.length);
     solution += letters[randomIndex];
   }
 }
-
+// random number for generateSolution to use
 function getRandomInt(min, max) {
+  // takes a min and max value (0 and 8), and multiples the difference + the min * a random number
+  // between 0 and 1, rounded down.  this gives a random index to access a random letters from letters
+  // array
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function generateHint(solution, guess) {
-	console.log('TCL: generateHint -> guess', guess)
   const solutionArray = solution.split('');
   const guessArray = guess.split('');
   let correctLocations = 0;
@@ -41,7 +45,6 @@ function generateHint(solution, guess) {
       solutionArray[i] = null;
     }
   }
-  console.log('solutionArr', solutionArray);
 
   let correctLetters = 0;
   for (let i = 0; i < solutionArray.length; i++) {
@@ -50,24 +53,27 @@ function generateHint(solution, guess) {
       solutionArray[i] = null;
     }
   }
-  return 'You have ' + colors.red(correctLetters) + ' correct letters and ' + colors.white.underline(correctLocations) + ' are in the correct location.';
+  // return colors.red(correctLetters) + ' correct letters, ' + colors.white.underline(correctLocations) + ' correct locations.';
+  return `${correctLetters}-${correctLocations}`;
 }
 
 function mastermind(guess) {
-  let hint;
   // getting solution from global solution variable
   if (guess === solution) {
     return 'You guessed it!';
   } else {
-    hint = generateHint(solution, guess);
-    let combString = guess + " " + hint;
-    board.push(combString);
+    let hint = generateHint(solution, guess);
+    // let feedback = "You guessed: " + guess + "\nhint: " + hint;
+    // board.push(feedback);
+    board.push(hint);
   }
 
 }
 
 
 function getPrompt() {
+  // node readline object's question method is called, takes a prompt string
+  // and a function for the user input
   rl.question('guess: ', (guess) => {
     mastermind(guess);
     printBoard();
@@ -78,6 +84,7 @@ function getPrompt() {
 // Tests
 
 if (typeof describe === 'function') {
+  solution = 'abcd';
   describe('#mastermind()', () => {
     it('should register a guess and generate hints', () => {
       mastermind('aabb');
