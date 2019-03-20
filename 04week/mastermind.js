@@ -9,9 +9,9 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let board = [];
+const board = [];
 let solution = '';
-let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 let incorrectGuesses = 0;
 
 // prints history of hints, each item in board array is a previous hint
@@ -52,7 +52,7 @@ function generateHint(guess) {
     }
     // keep track of index in solutionArray of extra correct letters and store in variable
     // use this variable to know what letter to null in solutionArray to avoid counting extra letters already counted
-    let targetIndex = solutionArray.indexOf(guessArray[i]);
+    const targetIndex = solutionArray.indexOf(guessArray[i]);
     if (targetIndex > -1) {
       otherCorrectLetters++
       solutionArray[targetIndex] = null;
@@ -65,7 +65,7 @@ function generateHint(guess) {
 function mastermind(guess) {
   // getting solution from global solution variable
   if (guess == solution) {
-    // logging win message for so player can see they won
+    // logging win message so player can see they won
     console.log('You guessed it!');
     // return win message to pass test
     return 'You guessed it!';
