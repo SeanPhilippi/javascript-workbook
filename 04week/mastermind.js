@@ -76,7 +76,6 @@ function generateHint(guess) {
   }
 
   return `${otherCorrectLetters}`.red + '-' + `${correctLetterLocations}`.white.underline;
-  // return `${otherCorrectLetters}-${correctLetterLocations}`;
 }
 
 function mastermind(guess) {
@@ -91,8 +90,6 @@ function mastermind(guess) {
     return 'You guessed it!';
   } else {
     let hint = generateHint(guess);
-    // let feedback = "You guessed: " + guess + "\nhint: " + hint;
-    // board.push(feedback);
     board.push(hint);
     turns--;
   }
@@ -115,6 +112,7 @@ function getPrompt() {
 }
 
 // Tests
+// * to run tests, npm test 04week/mastermind.js
 
 if (typeof describe === 'function') {
   solution = 'abcd';
