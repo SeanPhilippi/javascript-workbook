@@ -35,7 +35,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateHint(solution, guess) {
+function generateHint(guess) {
   const solutionArray = solution.split('');
   const guessArray = guess.split('');
   // defined here so they can be returned outside the for loop
@@ -72,7 +72,7 @@ function mastermind(guess) {
   } else if (incorrectGuesses === 10) {
     console.log(`You ran out of turns! The solution was ${solution}`);
   } else {
-    let hint = generateHint(solution, guess);
+    let hint = generateHint(guess);
     // let feedback = "You guessed: " + guess + "\nhint: " + hint;
     // board.push(feedback);
     board.push(hint);
@@ -108,10 +108,10 @@ if (typeof describe === 'function') {
 
   describe('#generateHint()', () => {
     it('should generate hints', () => {
-      assert.equal(generateHint('abcd', 'abdc'), '2-2');
+      assert.equal(generateHint('abdc'), '2-2');
     });
     it('should generate hints if solution has duplicates', () => {
-      assert.equal(generateHint('abcd', 'aabb'), '1-1');
+      assert.equal(generateHint('aabb'), '1-1');
     });
 
   });
