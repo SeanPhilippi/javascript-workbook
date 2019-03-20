@@ -10,9 +10,11 @@ const rl = readline.createInterface({
 });
 
 let board = [];
-let solution = 'abcd';
+let solution = '';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+let incorrectGuesses = 0;
 
+// prints history of hints, each item in board array is a previous hint
 function printBoard() {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
@@ -20,8 +22,7 @@ function printBoard() {
 }
 
 function generateSolution() {
-  // loops 4 times to concatenate 4 random letters from letters array 
-  // into a solution string with a length of 4
+  // loops 4 times to concatenate 4 random letters from letters array into a solution string
   for (let i = 0; i < 4; i++) {
     const randomIndex = getRandomInt(0, letters.length);
     solution += letters[randomIndex];
@@ -29,48 +30,55 @@ function generateSolution() {
 }
 // random number for generateSolution to use
 function getRandomInt(min, max) {
-  // takes a min and max value (0 and 8), and multiples the difference + the min * a random number
-  // between 0 and 1, rounded down.  this gives a random index to access a random letters from letters
-  // array
+  // takes a min and max value (0 and 8), and multiplies the difference + the min * a random number between 
+  // 0 and 1, rounded down.  this gives a random index to access random letters from the letters array
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function generateHint(solution, guess) {
   const solutionArray = solution.split('');
   const guessArray = guess.split('');
-  let correctLocations = 0;
-  let correctLetters = 0;
-
+  // defined here so they can be returned outside the for loop
+  let correctLetterLocations = 0;
+  let otherCorrectLetters = 0;
+  
   for (let i = 0; i < solutionArray.length; i++) {
+    // for each item in solution array, check for correct letter location,
+    // if found, null letter so it isn't recounted when looking for extra letters
+    // not in the correct position
     if (guessArray[i] === solutionArray[i]) {
-      correctLocations++;
+      correctLetterLocations++;
       solutionArray[i] = null;
-      console.log('solArr after location loop', solutionArray);
     }
-
+    // keep track of index in solutionArray of extra correct letters and store in variable
+    // use this variable to know what letter to null in solutionArray to avoid counting extra letters already counted
     let targetIndex = solutionArray.indexOf(guessArray[i]);
     if (targetIndex > -1) {
-      correctLetters++
+      otherCorrectLetters++
       solutionArray[targetIndex] = null;
-      console.log('solArr after letters loop', solutionArray)
     }
   }
-  // return colors.red(correctLetters) + ' correct letters, ' + colors.white.underline(correctLocations) + ' correct locations.';
-  return `${correctLetters}-${correctLocations}`;
+  // return colors.red(otherCorrectLetters) + ' correct letters, ' + colors.white.underline(correctLetterLocations) + ' correct locations.';
+  return `${otherCorrectLetters}-${correctLetterLocations}`;
 }
 
 function mastermind(guess) {
   // getting solution from global solution variable
   if (guess == solution) {
-    console.log('You guessed it!')
+    // logging win message for so player can see they won
+    console.log('You guessed it!');
+    // return win message to pass test
     return 'You guessed it!';
+  } else if (incorrectGuesses === 10) {
+    console.log(`You ran out of turns! The solution was ${solution}`);
   } else {
     let hint = generateHint(solution, guess);
     // let feedback = "You guessed: " + guess + "\nhint: " + hint;
     // board.push(feedback);
     board.push(hint);
+    incorrectGuesses++;
+    console.log('Guess again.');
   }
-
 }
 
 
@@ -110,6 +118,6 @@ if (typeof describe === 'function') {
 
 } else {
 
-  // generateSolution();
+  generateSolution();
   getPrompt();
 }
