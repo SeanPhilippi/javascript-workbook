@@ -9,16 +9,28 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const board = [];
+let board = [];
 let solution = '';
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-let incorrectGuesses = 0;
+let turns = 10;
 
 // prints history of hints, each item in board array is a previous hint
 function printBoard() {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
+  if (turns > 0) {
+    console.log(`${turns} turns left`.magenta.bgBlack + '\nGuess again...'.yellow.italic)
+  } else {
+    console.log('Last turn!!!'.red);
+  }
+}
+
+// resets game/global vars
+function resetGame() {
+  board = [];
+  solution = '';
+  turns = 10;
 }
 
 function generateSolution() {
@@ -58,26 +70,30 @@ function generateHint(guess) {
       solutionArray[targetIndex] = null;
     }
   }
-  // return colors.red(otherCorrectLetters) + ' correct letters, ' + colors.white.underline(correctLetterLocations) + ' correct locations.';
-  return `${otherCorrectLetters}-${correctLetterLocations}`;
+  return `${otherCorrectLetters}`.red + '-' + `${correctLetterLocations}`.white.underline;
+  // return `${otherCorrectLetters}-${correctLetterLocations}`;
 }
 
 function mastermind(guess) {
   // getting solution from global solution variable
-  if (guess == solution) {
+  if (guess === solution) {
     // logging win message so player can see they won
-    console.log('You guessed it!');
+    console.log('You guessed it!'.green);
+    resetGame();
     // return win message to pass test
     return 'You guessed it!';
-  } else if (incorrectGuesses === 10) {
-    console.log(`You ran out of turns! The solution was ${solution}`);
+  } else if (turns === 0) {
+    console.log('You ran out of turns! The solution was '.red + `${solution}`.cyan.bgBlack);
+    setTimeout((function() {  
+      console.log('\n');
+      return process.exit();
+    }), 3000);
   } else {
     let hint = generateHint(guess);
     // let feedback = "You guessed: " + guess + "\nhint: " + hint;
     // board.push(feedback);
     board.push(hint);
-    incorrectGuesses++;
-    console.log('Guess again.');
+    turns--;
   }
 }
 
@@ -99,6 +115,7 @@ if (typeof describe === 'function') {
   describe('#mastermind()', () => {
     it('should register a guess and generate hints', () => {
       mastermind('aabb');
+      // checking to see that a hint was pushed into board array
       assert.equal(board.length, 1);
     });
     it('should be able to detect a win', () => {
@@ -108,10 +125,12 @@ if (typeof describe === 'function') {
 
   describe('#generateHint()', () => {
     it('should generate hints', () => {
-      assert.equal(generateHint('abdc'), '2-2');
+      // assert.equal(generateHint('abdc'), '2-2');
+      assert.equal(generateHint('abdc'), '2'.red+'-'+'2'.white.underline);
     });
     it('should generate hints if solution has duplicates', () => {
-      assert.equal(generateHint('aabb'), '1-1');
+      // assert.equal(generateHint('aabb'), '1-1');
+      assert.equal(generateHint('aabb'), '1'.red+'-'+'1'.white.underline);
     });
 
   });
