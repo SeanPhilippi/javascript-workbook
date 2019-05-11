@@ -86,14 +86,8 @@ const diagonalWin = () => {
 const checkForWin = () => {
   // check all win functions and if one is satisfied, return true to make checkForWin() truthy, this is to
   // satisfy the checkForWin() test
-  if (horizontalWin()) {
-    console.log('Player ' + playerTurn + ' wins!');
-    return true;
-  } else if (verticalWin()) {
-    console.log('Player ' + playerTurn + ' wins!');
-    return true;
-  } else if (diagonalWin()) {
-    console.log('Player ' + playerTurn + ' wins!');
+  if (horizontalWin() || verticalWin() || diagonalWin()) {
+    console.log(`Player ${playerTurn} wins!`);
     return true;
   }
 }
@@ -121,7 +115,7 @@ const getPrompt = () => {
     // but want the board to print before the prompt and after being marked otherwise
     firstPrompt = false;
   }
-  console.log("It's Player " + playerTurn + "'s turn.");
+  console.log(`It's Player ${playerTurn}'s turn.`);
   // rl read line
   rl.question('row: ', (row) => {
     rl.question('column: ', (column) => {
@@ -147,7 +141,7 @@ if (typeof describe === 'function') {
     });
     it('should check for vertical wins', () => {
       board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
-      assert.equal(verticalWin(), true);2
+      assert.equal(verticalWin(), true);
     });
     it('should check for horizontal wins', () => {
       board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
