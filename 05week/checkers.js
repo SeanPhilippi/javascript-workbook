@@ -3,7 +3,7 @@
 const assert = require('assert');
 const readline = require('readline');
 const rl = readline.createInterface({
-  input: process.stdin
+  input: process.stdin,
   output: process.stdout
 });
 
@@ -127,8 +127,6 @@ class Board {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////
-
 class Game {
   constructor() {
     this.board = new Board;
@@ -151,7 +149,7 @@ class Game {
     if(fromCoords[0] <= 7 && fromCoords[1] <= 7 && toCoords[0] <= 7 && toCoords[1] <= 7) {
       // toWhere must be empty and whichPiece must be true(not empty)
       if (this.board.grid[toCoords[0]][toCoords[1]] === null &&
-      this.board.grid[fromCoords[0]][fromCoords[1]]) {
+          this.board.grid[fromCoords[0]][fromCoords[1]]) {
         if (playerTurn === whiteChecker) {
           whiteRules();
         } else if (playerTurn === blackChecker){
