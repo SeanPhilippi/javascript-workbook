@@ -20,8 +20,17 @@ let board = [
   [' ', ' ', ' '],
   [' ', ' ', ' ']
 ];
+// this is so user has a board to look at for intial entry, since I moved the printBoard function out of
+// getPrompt() and put it after the first mark is made.  I wanted the user to be able to see their last mark
+// on the board when they win, as well as their win statement before exiting the program
+let initialBoard = [
+  [' ', ' ', ' '],
+  [' ', ' ', ' '],
+  [' ', ' ', ' ']
+];
 
 let playerTurn = 'X';
+let firstPrompt = true;
 
 function printBoard() {
   console.log('   0  1  2');
@@ -30,6 +39,15 @@ function printBoard() {
   console.log('1 ' + board[1].join(' | '));
   console.log('  ---------');
   console.log('2 ' + board[2].join(' | '));
+}
+
+function printInitialBoard() {
+  console.log('   0  1  2');
+  console.log('0 ' + initialBoard[0].join(' | '));
+  console.log('  ---------');
+  console.log('1 ' + initialBoard[1].join(' | '));
+  console.log('  ---------');
+  console.log('2 ' + initialBoard[2].join(' | '));
 }
 
 const turnSwitcher = () => playerTurn === 'X' ? playerTurn = 'O' : playerTurn = 'X';
@@ -69,39 +87,47 @@ const checkForWin = () => {
   // check all win functions and if one is satisfied, return true to make checkForWin() truthy, this is to
   // satisfy the checkForWin() test
   if (horizontalWin()) {
-    console.log('Player '+ playerTurn+ ' wins!');
+    console.log('Player ' + playerTurn + ' wins!');
     return true;
   } else if (verticalWin()) {
-    console.log('Player '+ playerTurn+ ' wins!');
+    console.log('Player ' + playerTurn + ' wins!');
     return true;
   } else if (diagonalWin()) {
-    console.log('Player '+ playerTurn+ ' wins!');
+    console.log('Player ' + playerTurn + ' wins!');
     return true;
   }
 }
 
 const ticTacToe = (row, column) => {
   board[row][column] = playerTurn;
+  printBoard();
   checkForWin();
   // continue to switch turns and give the prompt as long as there are no wins detected
-  if (!horizontalWin() && !verticalWin() && !diagonalWin()) {
+  // checking all win types instead of checkForWin() to avoid printing win message twice
+  if (!verticalWin() && !horizontalWin() && !diagonalWin()) {
     turnSwitcher();
     getPrompt();
+  } else {
+    // if win, break out of program
+    return process.exit(22);
   }
 }
 
 
 const getPrompt = () => {
-  printBoard();
+  if (firstPrompt) {
+    printInitialBoard();
+    // toggle this so above function only fires first time, want user to have a board to look at
+    // but want the board to print before the prompt and after being marked otherwise
+    firstPrompt = false;
+  }
   console.log("It's Player " + playerTurn + "'s turn.");
   // rl read line
   rl.question('row: ', (row) => {
     rl.question('column: ', (column) => {
       ticTacToe(row, column);
-
     });
   });
-
 }
 
 
